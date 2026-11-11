@@ -30,8 +30,10 @@ apiClient.interceptors.response.use(
       localStorage.removeItem('demuna_token');
       localStorage.removeItem('token');
       localStorage.removeItem('demuna_user');
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
+      const basePath = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '');
+      const loginUrl = `${basePath}/login`;
+      if (!window.location.pathname.endsWith('/login')) {
+        window.location.href = loginUrl;
       }
     }
     return Promise.reject(error);

@@ -6,7 +6,9 @@ use App\Utils\Response;
 
 class AuthMiddleware {
     public static function authenticate(): array {
-        $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        $authHeader = $_SERVER['HTTP_AUTHORIZATION'] 
+            ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] 
+            ?? '';
 
         if (!$authHeader && function_exists('apache_request_headers')) {
             $headers = apache_request_headers();

@@ -2,6 +2,10 @@
   RewriteEngine On
   RewriteBase /demuna/
   
+  # Preservar cabecera Authorization para peticiones API
+  RewriteCond %{HTTP:Authorization} .
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+  
   # Si la petición es para la API backend (/demuna/api/...), no interceptar
   RewriteRule ^api(/.*)?$ - [L,NC]
   
@@ -13,6 +17,10 @@
   # Reescritura para Single Page Application (React Router) bajo /demuna
   RewriteRule ^index\.html$ - [L]
   RewriteRule . /demuna/index.html [L]
+</IfModule>
+
+<IfModule mod_setenvif.c>
+  SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
 </IfModule>
 
 # Compresión GZIP para mejor rendimiento

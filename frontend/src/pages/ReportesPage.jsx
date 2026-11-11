@@ -60,11 +60,11 @@ export const ReportesPage = () => {
   const [docFormData, setDocFormData] = useState({
     docNumber: '001-2026',
     date: new Date().toISOString().split('T')[0],
-    city: 'Sapillica',
+    city: 'Zapillica',
     solicitante: '',
     invitado: '',
     nna: '',
-    defensor: 'Defensor Responsable DEMUNA',
+    defensor: 'Defensor Responsable DEMUNA Zapillica',
     materia: 'Pensión de Alimentos y Régimen de Visitas',
     acuerdo: 'Las partes acuerdan fijar una pensión de alimentos mensual y voluntaria por la suma de S/ 450.00 (Cuatrocientos cincuenta con 00/100 soles), a depositarse los primeros cinco días de cada mes.',
     observaciones: 'El presente documento se emite con arreglo al Código de los Niños y Adolescentes y la normativa vigente del MIMP.'
@@ -173,7 +173,7 @@ export const ReportesPage = () => {
       color: 'from-[#2faaf7] to-[#0284c7]',
       description: 'Cédula formal de citación a audiencia conciliatoria en la sede de la DEMUNA con apercibimiento de ley.',
       defaultMateria: 'Audiencia de Conciliación Extrajudicial',
-      defaultAcuerdo: 'Se le cita formalmente a la audiencia extrajudicial que tendrá lugar el día fijado en el local institucional de la DEMUNA Sapillica, a fin de tratar materias relativas al bienestar de su menor hijo(a).'
+      defaultAcuerdo: 'Se le cita formalmente a la audiencia extrajudicial que tendrá lugar el día fijado en el local institucional de la DEMUNA ZAPILLICA, a fin de tratar materias relativas al bienestar de su menor hijo(a).'
     },
     {
       id: 'f5',
@@ -261,7 +261,7 @@ export const ReportesPage = () => {
       color: 'from-[#6366f1] to-[#4338ca]',
       description: 'Hoja de portada institucional para legajo físico con código único, partes, materia y control de folios.',
       defaultMateria: 'Expediente Tutelar Completo',
-      defaultAcuerdo: 'Legajo oficial foliado y custodiado en el Archivo Central de la DEMUNA Sapillica conforme al Reglamento de la Ley N° 27337.'
+      defaultAcuerdo: 'Legajo oficial foliado y custodiado en el Archivo Central de la DEMUNA ZAPILLICA conforme al Reglamento de la Ley N° 27337.'
     }
   ];
 
@@ -287,13 +287,13 @@ export const ReportesPage = () => {
   const handleOpenDocModal = (tmpl) => {
     setSelectedTemplate(tmpl);
     setDocFormData({
-      docNumber: `001-2026-DEMUNA/MDS`,
+      docNumber: `001-2026-DEMUNA/MDZ`,
       date: new Date().toISOString().split('T')[0],
-      city: 'Sapillica',
+      city: 'Zapillica',
       solicitante: 'María Luisa Jiménez Castillo',
       invitado: 'José Alberto Ruiz Benítez',
       nna: 'Carlos Daniel Ruiz Jiménez (8 años)',
-      defensor: 'Abog. Coordinador Responsable DEMUNA',
+      defensor: 'Abog. Coordinador Responsable DEMUNA Zapillica',
       materia: tmpl.defaultMateria,
       acuerdo: tmpl.defaultAcuerdo,
       observaciones: 'El presente acto se celebra de forma libre, voluntaria y con arreglo a la Directiva N° 001-2022-MIMP sobre Conciliación Extrajudicial en DEMUNA.'
@@ -318,8 +318,8 @@ export const ReportesPage = () => {
       const payload = {
         year,
         telefono_dna: '073-371018',
-        email_dna: 'demuna@munisapillica.gob.pe',
-        ubicacion: 'Sapillica - Ayabaca - Piura',
+        email_dna: 'demuna@munizapillica.gob.pe',
+        ubicacion: 'Zapillica - Ayabaca - Piura',
         reportData: mimpData
       };
 
@@ -541,7 +541,7 @@ export const ReportesPage = () => {
 
             <div className="text-[11px] text-[var(--muted)] flex items-center space-x-2">
               <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-              <span>Sincronizado con Base de Datos DEMUNA Sapillica</span>
+              <span>Sincronizado con Base de Datos DEMUNA ZAPILLICA</span>
             </div>
           </div>
 
@@ -806,7 +806,7 @@ export const ReportesPage = () => {
                 {/* Footer Signature Blocks for Print */}
                 <div className="pt-8 border-t border-[var(--line)] flex flex-col sm:flex-row items-center justify-between text-xs text-[var(--muted)] gap-4">
                   <div className="text-center sm:text-left">
-                    <span className="font-bold text-white block">DEMUNA Municipalidad Distrital de Sapillica</span>
+                    <span className="font-bold text-white block">DEMUNA ZAPILLICA &bull; Municipalidad Distrital de Zapillica</span>
                     <span>Acreditada ante la Dirección de Sistemas Locales y Defensorías (DSLD - MIMP)</span>
                   </div>
 
@@ -990,11 +990,11 @@ export const ReportesPage = () => {
                               setDocFormData({
                                 docNumber: `ACTA N° ${act.actNumber || act.id}-${act.date ? act.date.substring(0,4) : '2026'}`,
                                 date: act.date || new Date().toISOString().split('T')[0],
-                                city: 'Sapillica',
+                                city: 'Zapillica',
                                 solicitante: act.applicantName || 'Parte Solicitante',
                                 invitado: act.suspectName || 'Parte Invitada',
                                 nna: act.childName || 'Menor Tutelado',
-                                defensor: act.workerName || 'Defensor Responsable DEMUNA',
+                                defensor: act.workerName || 'Defensor Responsable DEMUNA Zapillica',
                                 materia: act.f9aMaterias || act.f10Materias || act.title,
                                 acuerdo: act.f9aTermyCond || act.f10Compromisos || 'Términos y condiciones suscritos según ley.',
                                 observaciones: 'Documento original extraído del archivo oficial de actas.'
@@ -1195,10 +1195,10 @@ export const ReportesPage = () => {
                     REPÚBLICA DEL PERÚ &bull; MINISTERIO DE LA MUJER Y POBLACIONES VULNERABLES
                   </span>
                   <h2 className="text-sm sm:text-base font-black text-slate-900 uppercase">
-                    MUNICIPALIDAD DISTRITAL DE SAPILLICA &bull; PROVINCIA DE AYABACA &bull; PIURA
+                    MUNICIPALIDAD DISTRITAL DE ZAPILLICA &bull; PROVINCIA DE AYABACA &bull; PIURA
                   </h2>
                   <span className="text-[11px] font-bold text-slate-700 block">
-                    DEFENSORÍA MUNICIPAL DEL NIÑO, NIÑA Y ADOLESCENTE — DEMUNA
+                    DEFENSORÍA MUNICIPAL DEL NIÑO, NIÑA Y ADOLESCENTE — DEMUNA ZAPILLICA
                   </span>
                   <span className="text-[9.5px] text-slate-500 italic block">
                     Acreditada con Código N° DNA-PIU-042 ante la Dirección de Sistemas Locales (MIMP)
@@ -1266,7 +1266,7 @@ export const ReportesPage = () => {
 
                 {/* Seal / Footer */}
                 <div className="text-[9px] text-slate-400 text-center pt-4 border-t border-slate-200">
-                  Documento emitido válidamente por el Sistema Integrado SISTDEMUNA &bull; {docFormData.city}, Perú.
+                  Documento emitido válidamente por DEMUNA ZAPILLICA &bull; {docFormData.city}, Perú.
                 </div>
 
               </div>

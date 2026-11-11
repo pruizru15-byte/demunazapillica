@@ -80,7 +80,7 @@ export const LoginPage = () => {
           <div className="flex items-center space-x-2 text-[#F5F4FF]">
             <Landmark className="w-4 h-4 text-[#2FAAF7]" />
             <span className="text-xs sm:text-sm font-semibold tracking-wide text-slate-200">
-              Municipalidad Distrital <span className="text-[#FFC36C] font-bold">DEMUNA</span>
+              Municipalidad Distrital de Zapillica <span className="text-[#FFC36C] font-bold">&bull; DEMUNA ZAPILLICA</span>
             </span>
           </div>
         </div>
@@ -118,11 +118,11 @@ export const LoginPage = () => {
 
               <div>
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white flex items-center space-x-2">
-                  <span>Sistema DEMUNA</span>
-                  <span className="text-[#FFC36C]">Perú</span>
+                  <span>DEMUNA</span>
+                  <span className="text-[#FFC36C]">ZAPILLICA</span>
                 </h1>
                 <p className="text-xs sm:text-sm font-medium text-[#B8B7D0] tracking-wide mt-0.5">
-                  Defensoría Municipal del Niño y del Adolescente
+                  Defensoría Municipal del Niño, Niña y Adolescente de Zapillica
                 </p>
                 {/* Línea luminosa decorativa */}
                 <div className="h-1 w-24 sm:w-32 bg-gradient-to-r from-[#2FAAF7] via-[#6C3AED] to-transparent rounded-full mt-2" />
@@ -225,10 +225,10 @@ export const LoginPage = () => {
               </div>
 
               <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                Sistema DEMUNA <span className="text-[#FFC36C]">Perú</span>
+                DEMUNA <span className="text-[#FFC36C]">ZAPILLICA</span>
               </h2>
               <p className="text-xs text-[#B8B7D0] mt-1 max-w-xs font-normal">
-                Accede a la plataforma institucional de la Defensoría Municipal del Niño y del Adolescente.
+                Accede a la plataforma institucional de la DEMUNA ZAPILLICA.
               </p>
 
               {/* Selector Rápido de Rol / Usuario para pruebas */}
@@ -397,7 +397,7 @@ export const LoginPage = () => {
 
       {/* PIE INSTITUCIONAL */}
       <footer className="relative z-10 w-full py-3 px-6 text-center text-xs text-[#918CA9] border-t border-[#373351]/30">
-        <p>Sistema DEMUNA Perú — Desarrollado para la Municipalidad Distrital de Sapillica &bull; MIMP Perú &copy; {new Date().getFullYear()}</p>
+        <p>DEMUNA ZAPILLICA — Desarrollado para la Municipalidad Distrital de Zapillica &bull; MIMP Perú &copy; {new Date().getFullYear()}</p>
       </footer>
 
       {/* MODAL MESA DE AYUDA */}
@@ -409,13 +409,13 @@ export const LoginPage = () => {
               <span>Mesa de Ayuda Institucional</span>
             </h3>
             <p className="text-xs text-[#B8B7D0] mb-4">
-              Si tienes problemas para acceder al Sistema DEMUNA o necesitas restablecer tu contraseña:
+              Si tienes problemas para acceder a DEMUNA ZAPILLICA o necesitas restablecer tu contraseña:
             </p>
 
             <div className="space-y-3 text-xs bg-[#15132A] p-3.5 rounded-xl border border-[#373351] mb-5">
               <div className="flex justify-between">
                 <span className="text-[#918CA9]">Área encargada:</span>
-                <span className="text-white font-medium">Subgerencia de TI / DEMUNA</span>
+                <span className="text-white font-medium">Subgerencia de TI / DEMUNA Zapillica</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#918CA9]">Correo de soporte:</span>

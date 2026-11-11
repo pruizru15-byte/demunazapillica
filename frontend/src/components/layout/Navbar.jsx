@@ -129,7 +129,7 @@ export const Navbar = ({ onToggleSidebar, isSidebarCollapsed, onToggleCollapse }
         </button>
 
         <div className="flex items-center space-x-2 text-xs text-[var(--muted)]">
-          <span className="font-semibold tracking-wide hidden sm:inline">SISTDEMUNA</span>
+          <span className="font-semibold tracking-wide hidden sm:inline">DEMUNA ZAPILLICA</span>
           <span className="text-[var(--muted)] hidden sm:inline">›</span>
           <strong className="text-[var(--text)] font-extrabold text-xs sm:text-sm">
             {currentTitle}
@@ -250,7 +250,7 @@ export const Navbar = ({ onToggleSidebar, isSidebarCollapsed, onToggleCollapse }
 
             <div className="hidden sm:block">
               <b className="block text-xs font-bold text-[var(--text)] leading-tight group-hover:text-[#6c3aed] transition-colors">
-                {user?.fullName || 'Personal DEMUNA'}
+                {user?.fullName || 'Personal DEMUNA Zapillica'}
               </b>
               <small className="block text-[10px] text-[var(--muted)] leading-none mt-0.5">
                 {user?.roleName || 'Cuenta demostrativa'}
@@ -263,7 +263,7 @@ export const Navbar = ({ onToggleSidebar, isSidebarCollapsed, onToggleCollapse }
           {showProfileMenu && (
             <div className="absolute right-0 mt-3 w-56 bg-[var(--surface)] border border-[var(--line)] rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in slide-in-from-top-2">
               <div className="px-3 py-2 border-b border-[var(--line)] mb-1">
-                <p className="text-xs font-bold text-[var(--text)] truncate">{user?.fullName || 'Usuario DEMUNA'}</p>
+                <p className="text-xs font-bold text-[var(--text)] truncate">{user?.fullName || 'Usuario DEMUNA Zapillica'}</p>
                 <p className="text-[10px] text-[var(--muted)]">{user?.dni ? `DNI: ${user.dni}` : 'Sesión activa'}</p>
               </div>
 

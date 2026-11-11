@@ -65,7 +65,7 @@ export const ConciliacionPage = () => {
     // Conciliación F9A
     materias: 'Alimentos, Régimen de Visitas y Tenencia',
     tipoAcuerdo: 'Acuerdo Total',
-    hechos: 'Las partes se presentan voluntariamente a la audiencia convocada por la DEMUNA.',
+    hechos: 'Las partes se presentan voluntariamente a la audiencia convocada por la DEMUNA ZAPILLICA.',
     puntosControversia: 'Fijación del monto de pensión de alimentos y días del régimen de visitas.',
     termyCond: 'El citado se compromete a acudir puntualmente con la pensión mensual acordada.',
     montoPension: '350',
@@ -80,7 +80,7 @@ export const ConciliacionPage = () => {
     fechaCita: new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0],
     horaCita: '10:00:00',
     asunto: 'Audiencia de Conciliación Extrajudicial sobre Alimentos y Visitas',
-    trabEntrega: 'Notificador DEMUNA',
+    trabEntrega: 'Notificador DEMUNA Zapillica',
     // Derivación F7
     destinatario: 'Fiscalía Provincial de Familia',
     cargoDest: 'Fiscal Provincial',
@@ -264,7 +264,7 @@ export const ConciliacionPage = () => {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `DEMUNA_Pensiones_${new Date().toISOString().split('T')[0]}.csv`;
+      link.download = `DEMUNA_ZAPILLICA_Pensiones_${new Date().toISOString().split('T')[0]}.csv`;
       link.click();
     } else {
       if (actas.length === 0) return alert("No hay actas para exportar.");
@@ -285,7 +285,7 @@ export const ConciliacionPage = () => {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `DEMUNA_Actas_Conciliaciones_${new Date().toISOString().split('T')[0]}.csv`;
+      link.download = `DEMUNA_ZAPILLICA_Actas_Conciliaciones_${new Date().toISOString().split('T')[0]}.csv`;
       link.click();
     }
   };
@@ -1207,7 +1207,7 @@ export const ConciliacionPage = () => {
               <div className="flex items-center space-x-2">
                 <Printer className="w-5 h-5 text-[#10b981]" />
                 <div>
-                  <h3 className="text-sm font-extrabold text-[var(--text)]">Formato Legal Oficial DEMUNA &bull; Título Ejecutivo</h3>
+                  <h3 className="text-sm font-extrabold text-[var(--text)]">Formato Legal Oficial DEMUNA ZAPILLICA &bull; Título Ejecutivo</h3>
                   <p className="text-[10px] text-[var(--muted)]">Acta extrajudicial con valor de cosa juzgada conforme a ley</p>
                 </div>
               </div>
@@ -1234,7 +1234,7 @@ export const ConciliacionPage = () => {
               {/* Membrete Oficial */}
               <div className="text-center pb-4 border-b-2 border-slate-900 mb-6">
                 <p className="font-bold tracking-widest uppercase text-[11px] text-slate-700">República del Perú</p>
-                <p className="font-extrabold text-sm uppercase text-slate-900 mt-0.5">Municipalidad Distrital &bull; DEMUNA</p>
+                <p className="font-extrabold text-sm uppercase text-slate-900 mt-0.5">Municipalidad Distrital de Zapillica &bull; DEMUNA ZAPILLICA</p>
                 <p className="text-[10px] text-slate-600">Servicio de Conciliación Extrajudicial Especializada en Niñez y Adolescencia</p>
                 <div className="inline-block mt-3 px-4 py-1.5 bg-slate-100 border border-slate-300 font-sans font-black text-xs uppercase tracking-wider text-slate-900">
                   {previewActa.typeName} &bull; ACTA N° {String(previewActa.actNumber || previewActa.id).padStart(4, '0')} - {new Date().getFullYear()}
@@ -1271,7 +1271,7 @@ export const ConciliacionPage = () => {
               {/* Cuerpo del Acta Legal con Cláusulas */}
               <div className="space-y-4 my-6 text-justify">
                 <p>
-                  En la sede de la Defensoría Municipal del Niño y del Adolescente (DEMUNA), siendo las 10:00 horas del día <strong>{previewActa.date}</strong>, comparecen libre y voluntariamente las partes antes identificadas ante el Defensor del Niño y del Adolescente <strong>{previewActa.workerName}</strong> y el Abogado Homologador <strong>Registro {previewDetail?.f9aRegAbogado || 'CALL-48921'} ({previewDetail?.f9aColAbogados || 'Colegio de Abogados'})</strong>, con el objeto de arribar a un acuerdo conciliatorio respecto a los derechos del menor de edad, acordando lo siguiente:
+                  En la sede de la Defensoría Municipal del Niño y del Adolescente (DEMUNA ZAPILLICA), siendo las 10:00 horas del día <strong>{previewActa.date}</strong>, comparecen libre y voluntariamente las partes antes identificadas ante el Defensor del Niño y del Adolescente <strong>{previewActa.workerName}</strong> y el Abogado Homologador <strong>Registro {previewDetail?.f9aRegAbogado || 'CALL-48921'} ({previewDetail?.f9aColAbogados || 'Colegio de Abogados'})</strong>, con el objeto de arribar a un acuerdo conciliatorio respecto a los derechos del menor de edad, acordando lo siguiente:
                 </p>
 
                 <div className="space-y-3">
@@ -1316,7 +1316,7 @@ export const ConciliacionPage = () => {
                 </div>
                 <div className="border-t border-slate-400 pt-2">
                   <p className="font-bold text-slate-900">{previewActa.workerName}</p>
-                  <p className="text-slate-500">Defensor(a) DEMUNA</p>
+                  <p className="text-slate-500">Defensor(a) DEMUNA Zapillica</p>
                   <p className="text-slate-500">Acreditación MIMP</p>
                 </div>
                 <div className="border-t border-slate-400 pt-2">

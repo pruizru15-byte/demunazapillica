@@ -245,7 +245,7 @@ export const DashboardPage = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `SISTDEMUNA_Reporte_${period}_2026.csv`;
+    link.download = `DEMUNA_ZAPILLICA_Reporte_${period}_2026.csv`;
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 500);
 
@@ -1036,9 +1036,9 @@ export const DashboardPage = () => {
       <footer className="flex flex-col sm:flex-row items-center justify-between text-xs text-[var(--muted)] border-t border-[var(--line)] pt-5 pb-2 gap-2">
         <div className="flex items-center space-x-2">
           <Shield className="w-4 h-4 text-[#8c7deb]" />
-          <span>Plataforma institucional de gestión tutelar &bull; Municipalidad Distrital de Sapillica</span>
+          <span>Plataforma institucional de gestión tutelar &bull; Municipalidad Distrital de Zapillica</span>
         </div>
-        <span>Diseño SISTDEMUNA &copy; {new Date().getFullYear()}</span>
+        <span>DEMUNA ZAPILLICA &copy; {new Date().getFullYear()}</span>
       </footer>
 
     </div>

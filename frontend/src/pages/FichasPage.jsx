@@ -1036,8 +1036,8 @@ export const FichasPage = () => {
               {/* Membrete Oficial */}
               <div className="text-center pb-4 border-b-2 border-slate-900 mb-6">
                 <p className="font-bold tracking-widest uppercase text-[11px] text-slate-700">República del Perú</p>
-                <p className="font-extrabold text-sm uppercase text-slate-900 mt-0.5">Municipalidad Distrital &bull; DEMUNA</p>
-                <p className="text-[10px] text-slate-600">Defensoría Municipal del Niño y del Adolescente</p>
+                <p className="font-extrabold text-sm uppercase text-slate-900 mt-0.5">Municipalidad Distrital de Zapillica &bull; DEMUNA ZAPILLICA</p>
+                <p className="text-[10px] text-slate-600">Defensoría Municipal del Niño, Niña y Adolescente</p>
                 <div className="inline-block mt-3 px-3 py-1 bg-slate-100 border border-slate-300 font-sans font-bold text-xs uppercase tracking-wider text-slate-800">
                   {previewFicha.typeName} &bull; REGISTRO N° {String(previewFicha.actNumber || previewFicha.id).padStart(4, '0')}
                 </div>

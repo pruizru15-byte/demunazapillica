@@ -105,18 +105,18 @@ export const Sidebar = ({
               <div
                 className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#9c6bff] to-[#6030e6] p-0.5 border border-[#a68aff] shadow-[0_8px_20px_rgba(107,57,227,0.35)] flex items-center justify-center shrink-0 cursor-pointer"
                 onClick={onToggleCollapse}
-                title={isCollapsed ? 'Expandir barra lateral' : 'SISTDEMUNA'}
+                title={isCollapsed ? 'Expandir barra lateral' : 'DEMUNA ZAPILLICA'}
               >
                 <Shield className="w-5 h-5 text-white" />
               </div>
               
               {!isCollapsed && (
                 <div className="overflow-hidden transition-opacity duration-200">
-                  <h2 className="font-extrabold text-base tracking-wide text-white leading-tight font-sans truncate">
-                    SISTDEMUNA
+                  <h2 className="font-extrabold text-sm tracking-wide text-white leading-tight font-sans truncate">
+                    DEMUNA ZAPILLICA
                   </h2>
                   <span className="text-[10px] text-[#aeb4d4] font-medium block mt-0.5 truncate">
-                    Gestión de casos y documentos
+                    Defensoría Municipal &bull; Zapillica
                   </span>
                 </div>
               )}

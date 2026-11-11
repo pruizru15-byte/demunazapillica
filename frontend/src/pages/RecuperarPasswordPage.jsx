@@ -191,7 +191,7 @@ export const RecuperarPasswordPage = () => {
             </div>
           </div>
           <span className="font-bold text-white text-base tracking-tight group-hover:text-[#2FAAF7] transition-colors">
-            Sistema DEMUNA <span className="text-[#FFC36C]">Perú</span>
+            DEMUNA <span className="text-[#FFC36C]">ZAPILLICA</span>
           </span>
         </Link>
 
@@ -422,7 +422,7 @@ export const RecuperarPasswordPage = () => {
               <div>
                 <h3 className="text-lg font-bold text-white">¡Contraseña actualizada!</h3>
                 <p className="text-xs text-[#B8B7D0] mt-1.5 leading-relaxed">
-                  Tu nueva contraseña ha sido guardada de forma segura. Ya puedes ingresar al Sistema DEMUNA con tus nuevas credenciales.
+                  Tu nueva contraseña ha sido guardada de forma segura. Ya puedes ingresar a DEMUNA ZAPILLICA con tus nuevas credenciales.
                 </p>
               </div>
 
@@ -448,7 +448,7 @@ export const RecuperarPasswordPage = () => {
 
       {/* PIE INSTITUCIONAL */}
       <footer className="relative z-10 w-full py-3 px-6 text-center text-xs text-[#918CA9] border-t border-[#373351]/30">
-        <p>Sistema DEMUNA Perú — Desarrollado para la Municipalidad Distrital de Sapillica &bull; MIMP &copy; {new Date().getFullYear()}</p>
+        <p>DEMUNA ZAPILLICA — Desarrollado para la Municipalidad Distrital de Zapillica &bull; MIMP &copy; {new Date().getFullYear()}</p>
       </footer>
     </div>
   );

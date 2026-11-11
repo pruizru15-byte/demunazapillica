@@ -56,7 +56,7 @@ export const MainLayout = () => {
                 </div>
                 <div>
                   <h3 className="text-base font-extrabold text-[var(--text)]">Protección y Confidencialidad</h3>
-                  <p className="text-xs text-[var(--muted)]">Lineamientos Institucionales DEMUNA</p>
+                  <p className="text-xs text-[var(--muted)]">Lineamientos Institucionales DEMUNA ZAPILLICA</p>
                 </div>
               </div>
               <button

@@ -1053,8 +1053,8 @@ export const ExpedienteDetallePage = () => {
             <div className="space-y-6 text-xs text-justify leading-relaxed">
               {/* Membrete Oficial */}
               <div className="text-center space-y-1 pb-4 border-b-2 border-slate-900">
-                <h3 className="font-extrabold text-sm uppercase tracking-wide">Municipalidad Distrital de Sapillica</h3>
-                <h4 className="font-bold text-xs uppercase text-slate-700">Defensoría Municipal del Niño y del Adolescente (DEMUNA)</h4>
+                <h3 className="font-extrabold text-sm uppercase tracking-wide">Municipalidad Distrital de Zapillica</h3>
+                <h4 className="font-bold text-xs uppercase text-slate-700">Defensoría Municipal del Niño y del Adolescente (DEMUNA ZAPILLICA)</h4>
                 <p className="text-[10px] text-slate-500">Acreditada ante el Ministerio de la Mujer y Poblaciones Vulnerables — MIMP</p>
               </div>
 
@@ -1070,7 +1070,7 @@ export const ExpedienteDetallePage = () => {
 
               {/* Contenido Formal */}
               <p>
-                En el distrito de Sapillica, siendo el día <strong>{previewAct.actDate}</strong>, en las instalaciones de la Defensoría Municipal del Niño y del Adolescente (DEMUNA), ante la presencia del especialista responsable <strong>{expediente.workerName}</strong>, se deja constancia de la presente actuación correspondiente a la materia de <strong>{expediente.subject}</strong>.
+                En el distrito de Zapillica, siendo el día <strong>{previewAct.actDate}</strong>, en las instalaciones de la Defensoría Municipal del Niño y del Adolescente (DEMUNA ZAPILLICA), ante la presencia del especialista responsable <strong>{expediente.workerName}</strong>, se deja constancia de la presente actuación correspondiente a la materia de <strong>{expediente.subject}</strong>.
               </p>
 
               <div className="p-3 bg-slate-50 rounded border border-slate-200 space-y-1">

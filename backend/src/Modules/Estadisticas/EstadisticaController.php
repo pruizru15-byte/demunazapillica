@@ -211,7 +211,7 @@ class EstadisticaController extends Controller {
             'year' => $year,
             'quarter' => $quarter,
             'periodLabel' => $quarter ? "Trimestre {$quarter} - {$year}" : "Año Calendario {$year}",
-            'municipio' => 'Municipalidad Distrital de Sapillica',
+            'municipio' => 'Municipalidad Distrital de Zapillica',
             'provincia' => 'Ayabaca',
             'departamento' => 'Piura',
             'dnaCode' => 'DNA-PIU-042',
@@ -267,8 +267,8 @@ class EstadisticaController extends Controller {
         $body = $this->getJsonBody();
         $year = (int)($body['year'] ?? date('Y'));
         $phone = trim($body['telefono_dna'] ?? '073-371018');
-        $email = trim($body['email_dna'] ?? 'demuna@munisapillica.gob.pe');
-        $location = trim($body['ubicacion'] ?? 'Sapillica - Ayabaca - Piura');
+        $email = trim($body['email_dna'] ?? 'demuna@munizapillica.gob.pe');
+        $location = trim($body['ubicacion'] ?? 'Zapillica - Ayabaca - Piura');
         $jsonData = json_encode($body['reportData'] ?? []);
 
         $stmt = $db->prepare("

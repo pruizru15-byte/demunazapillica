@@ -75,7 +75,7 @@ export const ConfiguracionPage = () => {
     notificaciones_correo: '1',
     prefijo_expediente: 'EXP',
     ano_fiscal_activo: '2026',
-    unidad_territorial: 'Piura - Ayabaca - Sapillica',
+    unidad_territorial: 'Piura - Ayabaca - Zapillica',
     meta_anual_casos: '180',
     // SMTP
     smtp_host: '',
@@ -101,7 +101,7 @@ export const ConfiguracionPage = () => {
     name: '',
     typeId: '',
     address: '',
-    district: 'Sapillica',
+    district: 'Zapillica',
     province: 'Ayabaca',
     department: 'Piura',
     phone: ''
@@ -276,7 +276,7 @@ export const ConfiguracionPage = () => {
       name: '',
       typeId: tiposEntidad[0]?.id ? String(tiposEntidad[0].id) : '1',
       address: '',
-      district: 'Sapillica',
+      district: 'Zapillica',
       province: 'Ayabaca',
       department: 'Piura',
       phone: ''
@@ -291,7 +291,7 @@ export const ConfiguracionPage = () => {
       name: entidad.name || '',
       typeId: entidad.typeId ? String(entidad.typeId) : '1',
       address: entidad.address || '',
-      district: entidad.district || 'Sapillica',
+      district: entidad.district || 'Zapillica',
       province: entidad.province || 'Ayabaca',
       department: entidad.department || 'Piura',
       phone: entidad.phone || ''
@@ -386,7 +386,7 @@ export const ConfiguracionPage = () => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-[#323859]/40 pb-5">
         <div>
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF] mb-1">
-            <span>DEMUNA Sapillica</span>
+            <span>DEMUNA ZAPILLICA</span>
             <ChevronRight className="w-3.5 h-3.5 text-[#6C3AED]" />
             <span>Administración</span>
             <ChevronRight className="w-3.5 h-3.5 text-[#6C3AED]" />
@@ -554,7 +554,7 @@ export const ConfiguracionPage = () => {
                   value={formData.institucion_nombre}
                   onChange={handleConfigChange}
                   className="w-full px-4 py-2.5 rounded-xl bg-[#0C0D22]/80 border border-[#323859] focus:border-[#6C3AED] focus:outline-none text-sm text-white transition-colors"
-                  placeholder="Ej. Municipalidad Distrital de Sapillica"
+                  placeholder="Ej. Municipalidad Distrital de Zapillica"
                   required
                 />
               </div>
@@ -587,7 +587,7 @@ export const ConfiguracionPage = () => {
                   value={formData.defensoria_nombre}
                   onChange={handleConfigChange}
                   className="w-full px-4 py-2.5 rounded-xl bg-[#0C0D22]/80 border border-[#323859] focus:border-[#6C3AED] focus:outline-none text-sm text-white transition-colors"
-                  placeholder="Ej. DEMUNA Sapillica - Defensoría Municipal del Niño, Niña y Adolescente"
+                  placeholder="Ej. DEMUNA ZAPILLICA - Defensoría Municipal del Niño, Niña y Adolescente"
                   required
                 />
               </div>
@@ -651,7 +651,7 @@ export const ConfiguracionPage = () => {
                   value={formData.direccion_sede}
                   onChange={handleConfigChange}
                   className="w-full px-4 py-2.5 rounded-xl bg-[#0C0D22]/80 border border-[#323859] focus:border-[#6C3AED] focus:outline-none text-sm text-white transition-colors"
-                  placeholder="Plaza de Armas s/n, Palacio Municipal - Sapillica, Ayabaca, Piura"
+                  placeholder="Plaza de Armas s/n, Palacio Municipal - Zapillica, Ayabaca, Piura"
                   required
                 />
               </div>
@@ -700,7 +700,7 @@ export const ConfiguracionPage = () => {
                   value={formData.email_institucional}
                   onChange={handleConfigChange}
                   className="w-full px-4 py-2.5 rounded-xl bg-[#0C0D22]/80 border border-[#323859] focus:border-[#6C3AED] focus:outline-none text-sm text-white transition-colors"
-                  placeholder="demuna@munisapillica.gob.pe"
+                  placeholder="demuna@munizapillica.gob.pe"
                   required
                 />
               </div>
@@ -802,7 +802,7 @@ export const ConfiguracionPage = () => {
                           <td className="px-4 py-3 text-[#9CA3AF]">
                             <div className="flex items-center gap-1">
                               <MapPin className="w-3 h-3 text-[#FFC36C]" />
-                              <span>{item.district || 'Sapillica'} - {item.province || 'Ayabaca'}</span>
+                              <span>{item.district || 'Zapillica'} - {item.province || 'Ayabaca'}</span>
                             </div>
                           </td>
                           <td className="px-4 py-3">
@@ -983,7 +983,7 @@ export const ConfiguracionPage = () => {
                   value={formData.unidad_territorial}
                   onChange={handleConfigChange}
                   className="w-full px-4 py-2.5 rounded-xl bg-[#0C0D22]/80 border border-[#323859] focus:border-[#6C3AED] focus:outline-none text-sm text-white transition-colors"
-                  placeholder="Piura - Ayabaca - Sapillica y Caseríos Aledaños"
+                  placeholder="Piura - Ayabaca - Zapillica y Caseríos Aledaños"
                   required
                 />
               </div>
@@ -1248,7 +1248,7 @@ export const ConfiguracionPage = () => {
                 <span className="text-[11px] font-semibold text-[#9CA3AF] uppercase">Motor de Datos</span>
                 <div className="text-base font-bold text-white mt-1">{systemInfo?.dbEngine || 'MySQL 8.0'}</div>
                 <span className="text-xs text-[#2FAAF7] flex items-center gap-1 mt-0.5">
-                  <Database className="w-3 h-3" /> Base: {systemInfo?.dbName || 'sistdemuna'}
+                  <Database className="w-3 h-3" /> Base: {systemInfo?.dbName || 'popydev_demuna'}
                 </span>
               </div>
 
@@ -1348,7 +1348,7 @@ export const ConfiguracionPage = () => {
                   type="text"
                   value={entidadForm.name}
                   onChange={(e) => setEntidadForm(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="Ej. Comisaría Rural PNP Sapillica"
+                  placeholder="Ej. Comisaría Rural PNP Zapillica"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-[#0C0D22]/80 border border-[#323859] focus:border-[#2FAAF7] focus:outline-none text-xs text-white"
                   required
                 />
@@ -1392,7 +1392,7 @@ export const ConfiguracionPage = () => {
                   type="text"
                   value={entidadForm.address}
                   onChange={(e) => setEntidadForm(prev => ({ ...prev, address: e.target.value }))}
-                  placeholder="Calle Comercio s/n, Sapillica"
+                  placeholder="Calle Comercio s/n, Zapillica"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-[#0C0D22]/80 border border-[#323859] focus:border-[#2FAAF7] focus:outline-none text-xs text-white"
                 />
               </div>

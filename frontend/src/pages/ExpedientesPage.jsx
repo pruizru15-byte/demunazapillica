@@ -128,7 +128,7 @@ export const ExpedientesPage = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `SISTDEMUNA_Expedientes_${new Date().toISOString().slice(0, 10)}.csv`;
+    link.download = `DEMUNA_ZAPILLICA_Expedientes_${new Date().toISOString().slice(0, 10)}.csv`;
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 500);
   };
@@ -373,7 +373,7 @@ export const ExpedientesPage = () => {
 
           <div className="px-5 py-3.5 bg-[var(--surface-2)] border-t border-[var(--line)] flex items-center justify-between text-xs text-[var(--muted)]">
             <span>Mostrando {expedientes.length} casos registrados</span>
-            <span>DEMUNA Sapillica &bull; MIMP</span>
+            <span>DEMUNA ZAPILLICA &bull; MIMP</span>
           </div>
         </div>
       ) : (

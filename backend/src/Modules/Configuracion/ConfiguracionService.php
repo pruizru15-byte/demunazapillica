@@ -194,7 +194,7 @@ class ConfiguracionService {
         $stmt->execute([
             trim($data['name']),
             !empty($data['address']) ? trim($data['address']) : null,
-            !empty($data['district']) ? trim($data['district']) : 'Sapillica',
+            !empty($data['district']) ? trim($data['district']) : 'Zapillica',
             !empty($data['province']) ? trim($data['province']) : 'Ayabaca',
             !empty($data['department']) ? trim($data['department']) : 'Piura',
             !empty($data['phone']) ? trim($data['phone']) : null,

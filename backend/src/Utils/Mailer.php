@@ -207,7 +207,7 @@ class Mailer {
           <!-- Pie de correo -->
           <tr>
             <td style="padding: 20px 40px; background-color: #15132A; border-top: 1px solid #373351; text-align: center; font-size: 11px; color: #918CA9;">
-              <p style="margin: 0 0 4px;">Defensoría Municipal del Niño y del Adolescente &bull; Municipalidad Distrital de Sapillica</p>
+              <p style="margin: 0 0 4px;">Defensoría Municipal del Niño, Niña y Adolescente &bull; DEMUNA ZAPILLICA &bull; Municipalidad Distrital de Zapillica</p>
               <p style="margin: 0;">Plataforma Institucional Segura &bull; MIMP Perú &copy; ' . date('Y') . '</p>
             </td>
           </tr>

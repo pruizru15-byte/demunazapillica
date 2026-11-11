@@ -53,7 +53,7 @@ export const AgendaPage = () => {
     description: '',
     date: new Date().toISOString().split('T')[0],
     time: '10:00',
-    location: 'Oficina DEMUNA - Sala de Audiencias',
+    location: 'Oficina DEMUNA Zapillica - Sala de Audiencias',
     amount: ''
   });
 
@@ -120,7 +120,7 @@ export const AgendaPage = () => {
           description: '',
           date: new Date().toISOString().split('T')[0],
           time: '10:00',
-          location: 'Oficina DEMUNA - Sala de Audiencias',
+          location: 'Oficina DEMUNA Zapillica - Sala de Audiencias',
           amount: ''
         });
         showToast("Actividad agendada y registrada en el sistema.");
@@ -181,10 +181,10 @@ export const AgendaPage = () => {
     const lines = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//DEMUNA//SISTDEMUNA v2.0//ES',
+      'PRODID:-//DEMUNA//DEMUNA ZAPILLICA v2.0//ES',
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
-      'X-WR-CALNAME:Agenda DEMUNA Perú',
+      'X-WR-CALNAME:Agenda DEMUNA Zapillica',
       'X-WR-TIMEZONE:America/Lima'
     ];
 
@@ -194,12 +194,12 @@ export const AgendaPage = () => {
       const dtStart = `${cleanDate}T${cleanTime}`;
       
       lines.push('BEGIN:VEVENT');
-      lines.push(`UID:event-${ev.id}-demuna@muni.gob.pe`);
+      lines.push(`UID:event-${ev.id}-demuna@munizapillica.gob.pe`);
       lines.push(`DTSTAMP:${cleanDate}T000000Z`);
       lines.push(`DTSTART:${dtStart}`);
       lines.push(`SUMMARY:${ev.type} - Caso ${ev.expedienteCode || ''}`);
       lines.push(`DESCRIPTION:${(ev.description || '').replace(/\n/g, ' ')}`);
-      lines.push(`LOCATION:Oficina DEMUNA / Diligencia`);
+      lines.push(`LOCATION:Oficina DEMUNA Zapillica / Diligencia`);
       lines.push(`STATUS:${ev.status === 'Realizado' ? 'CONFIRMED' : 'TENTATIVE'}`);
       lines.push('END:VEVENT');
     });
@@ -210,7 +210,7 @@ export const AgendaPage = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `DEMUNA_Agenda_${new Date().toISOString().split('T')[0]}.ics`);
+    link.setAttribute('download', `DEMUNA_ZAPILLICA_Agenda_${new Date().toISOString().split('T')[0]}.ics`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -311,7 +311,7 @@ export const AgendaPage = () => {
         <div>
           <div className="flex items-center space-x-2.5">
             <h1 className="text-xl sm:text-2xl font-black text-[var(--text)] tracking-tight">
-              Agenda y actividades de la DEMUNA
+              Agenda y actividades de DEMUNA ZAPILLICA
             </h1>
             <span className="hidden sm:inline-flex px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-[#6c3aed]/15 text-[#8b59f6] border border-[#6c3aed]/30">
               {stats.upcomingNext7Days} en los próximos 7 días
@@ -721,7 +721,7 @@ export const AgendaPage = () => {
           <div className="p-5 rounded-[var(--radius)] bg-gradient-to-br from-[#6c3aed]/15 via-[var(--surface)] to-transparent border border-[#6c3aed]/30 space-y-3">
             <div className="flex items-center space-x-2 text-[#8b59f6]">
               <Sparkles className="w-4 h-4" />
-              <h4 className="text-xs font-black uppercase">Audiencias DEMUNA</h4>
+              <h4 className="text-xs font-black uppercase">Audiencias DEMUNA Zapillica</h4>
             </div>
             <p className="text-xs text-[var(--muted)] leading-relaxed">
               Las citas agendadas aquí generan notificaciones oficiales para las partes y sincronización en Google Calendar u Outlook.
@@ -833,7 +833,7 @@ export const AgendaPage = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="Ej: Sala de Audiencias DEMUNA / Domicilio en Caserío El Palmo"
+                  placeholder="Ej: Sala de Audiencias DEMUNA Zapillica / Domicilio en Caserío El Palmo"
                   value={form.location}
                   onChange={(e) => setForm({ ...form, location: e.target.value })}
                   className="w-full px-3.5 py-2 bg-[var(--surface-2)] text-[var(--text)] border border-[var(--line)] rounded-xl text-xs outline-none"
@@ -884,7 +884,7 @@ export const AgendaPage = () => {
             <div className="flex items-start justify-between pb-3 border-b border-[var(--line)]">
               <div>
                 <span className="font-mono text-xs font-bold text-[#8b59f6] block">
-                  {selectedEvent.expedienteCode || 'Actividad DEMUNA'}
+                  {selectedEvent.expedienteCode || 'Actividad DEMUNA Zapillica'}
                 </span>
                 <h4 className="text-base font-black text-[var(--text)] mt-0.5">{selectedEvent.type}</h4>
               </div>

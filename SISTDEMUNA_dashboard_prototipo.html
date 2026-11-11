@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#151632"/>
+  <meta name="description" content="Prototipo demostrativo del panel de control SISTDEMUNA, basado en requerimientos preliminares."/>
+  <title>SISTDEMUNA · Panel de control</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+    :root{
+      --bg:#f5f6fc;--surface:#fff;--surface-2:#fbfaff;--text:#20243c;--muted:#8990a6;--line:#e9eaf3;
+      --nav:#13162f;--nav2:#1a1c40;--nav-text:#a4accd;--purple:#6c3aed;--violet:#8b59f6;--blue:#259be8;
+      --gold:#e6a03a;--green:#22a77a;--red:#d96878;--shadow:0 10px 32px rgba(33,29,75,.045);
+      --radius:17px;--focus:0 0 0 4px rgba(108,58,237,.16);
+    }
+    [data-theme="dark"]{
+      --bg:#0e1125;--surface:#1b203b;--surface-2:#212744;--text:#f3f3ff;--muted:#a5acc8;
+      --line:#323859;--nav:#0a0e20;--nav2:#151b36;--nav-text:#9ea7cb;--shadow:0 10px 32px rgba(0,0,0,.13)
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",system-ui,-apple-system,sans-serif;font-size:14px;transition:background .28s,color .28s}
+    button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}svg.icon{width:20px;height:20px;display:inline-block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+    button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;box-shadow:var(--focus)}
+    .app{display:flex;min-height:100vh}.sidebar{width:256px;min-width:256px;background:linear-gradient(168deg,var(--nav) 0%,#11152e 62%,#18143d 100%);color:#fff;min-height:100vh;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;z-index:30;box-shadow:10px 0 30px rgba(25,23,60,.025)}
+    .brand{display:flex;align-items:center;gap:11px;padding:27px 24px 30px}.brandmark{width:41px;height:42px;display:grid;place-items:center;background:linear-gradient(135deg,#9c6bff,#6030e6);border:1px solid #a68aff;border-radius:12px;box-shadow:0 8px 20px #6b39e355}
+    .brandmark svg{width:26px;height:26px}.brand h2{font-family:Manrope,sans-serif;letter-spacing:.35px;font-size:17px;line-height:1.1;margin:0;font-weight:800}.brand span{display:block;color:#aeb4d4;font-size:10px;margin-top:5px;letter-spacing:.1px}
+    .nav-scroll{overflow:auto;flex:1;padding:0 12px}.nav-label{color:#727caa;font-size:9.5px;font-weight:800;letter-spacing:1.6px;margin:22px 16px 10px}.nav-link{width:100%;display:flex;align-items:center;text-align:left;gap:13px;padding:13px 14px;border-radius:11px;background:transparent;color:var(--nav-text);border:1px solid transparent;font-weight:600;font-size:12.5px;transition:.22s;position:relative}
+    .nav-link svg{width:18px;height:18px}.nav-link:hover{color:#fff;background:rgba(255,255,255,.075)}.nav-link.active{color:#fff;background:linear-gradient(95deg,rgba(115,61,236,.38),rgba(122,77,235,.15));border-color:rgba(182,149,255,.16)}.nav-link.active:before{content:"";position:absolute;left:0;top:11px;bottom:11px;width:3px;background:#b79bff;border-radius:0 5px 5px 0}
+    .sidebar-help{margin:15px 16px 18px;padding:16px;background:linear-gradient(130deg,#252052,#292560);border:1px solid #413874;border-radius:15px}.sidebar-help svg{color:#c5b3ff;margin-bottom:9px}.sidebar-help b{display:block;font-size:12px}.sidebar-help p{margin:6px 0 12px;color:#b0b0d4;font-size:11px;line-height:1.55}.sidebar-help button{border:1px solid #6d62b8;border-radius:8px;background:#ffffff10;color:white;padding:8px 10px;font-weight:700;font-size:11px;width:100%}
+    .workspace{flex:1;min-width:0;display:flex;flex-direction:column}.topbar{background:var(--surface);height:78px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 38px;gap:22px}
+    .breadcrumbs{font-size:12px;color:var(--muted);display:flex;gap:10px;align-items:center}.breadcrumbs strong{color:var(--text);font-weight:700}.top-actions{display:flex;align-items:center;gap:10px}.icon-btn{display:grid;place-items:center;width:37px;height:37px;background:var(--surface);border:1px solid var(--line);border-radius:11px;color:var(--muted);transition:.2s;position:relative}.icon-btn:hover{color:var(--purple);border-color:#c9bef8}.icon-btn .dot{position:absolute;width:6px;height:6px;background:#f3ae56;top:6px;right:7px;border:2px solid var(--surface);border-radius:50%;box-sizing:content-box}
+    .profile{display:flex;align-items:center;gap:10px;padding-left:14px;border-left:1px solid var(--line);margin-left:5px}.avatar{height:38px;width:38px;border-radius:12px;background:#efebff;display:grid;place-items:center;color:#7548d7;font-weight:800;font-size:12px}.profile b{font-size:12px;display:block}.profile small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.chev{width:15px!important;height:15px!important;color:var(--muted)}
+    .main{padding:32px 38px 42px;max-width:1800px;width:100%;margin:0 auto}.page-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:21px}.page-heading h1{font-family:Manrope,sans-serif;font-weight:800;letter-spacing:-.8px;font-size:25px;line-height:1.2;margin:0}.page-heading p{margin:7px 0 0;color:var(--muted);font-size:12.5px}.heading-tools{display:flex;align-items:center;gap:10px}.soft-pill{background:#ede8ff;color:#6b3ed6;font-size:10px;font-weight:800;padding:8px 10px;border-radius:100px;display:flex;align-items:center;gap:6px;white-space:nowrap}.soft-pill:before{content:"";height:6px;width:6px;background:#8e66f6;border-radius:50%}
+    .secondary-btn,.primary-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;white-space:nowrap;border-radius:10px;min-height:39px;padding:10px 15px;font-size:12px;font-weight:800;transition:transform .2s,box-shadow .2s,background .2s}.secondary-btn{background:var(--surface);color:var(--text);border:1px solid var(--line)}.secondary-btn:hover{border-color:#a68dff;transform:translateY(-1px)}.primary-btn{color:white;border:1px solid #764bdf;background:linear-gradient(110deg,#8751f9,#6330df);box-shadow:0 7px 17px rgba(106,55,224,.17)}.primary-btn:hover{transform:translateY(-2px);box-shadow:0 11px 20px rgba(106,55,224,.25)}.primary-btn svg,.secondary-btn svg{width:16px;height:16px}
+    .hero{position:relative;overflow:hidden;border-radius:19px;min-height:176px;background:linear-gradient(105deg,#252657 0%,#4a2d95 51%,#7545dd 100%);display:flex;align-items:center;padding:29px 34px;margin-bottom:22px;box-shadow:0 12px 24px rgba(82,53,175,.09);isolation:isolate}
+    .hero:before{content:"";width:365px;height:365px;border:1px solid #ffffff24;border-radius:50%;position:absolute;right:-105px;top:-120px;box-shadow:0 0 0 65px #ffffff06,0 0 0 130px #ffffff04;z-index:-1}.hero:after{content:"";position:absolute;width:285px;height:235px;background:radial-gradient(circle,#a97aff8a,transparent 68%);right:130px;bottom:-160px;z-index:-1}
+    .hero-copy{position:relative;z-index:2;max-width:620px}.hero-eyebrow{display:inline-flex;align-items:center;gap:7px;color:#cdbaff;font-weight:700;font-size:11px;letter-spacing:.5px;margin-bottom:10px}.hero-eyebrow .shine{width:7px;height:7px;border-radius:50%;background:#ffcc79;box-shadow:0 0 10px #ffc65b}.hero h2{font-family:Manrope,sans-serif;color:white;font-size:22px;line-height:1.35;margin:0 0 7px;font-weight:800;letter-spacing:-.5px}.hero p{color:#d9d7f4;font-size:12px;line-height:1.65;margin:0 0 16px;max-width:500px}.hero-btn{display:inline-flex;gap:8px;align-items:center;color:#452799;background:white;padding:10px 14px;border:0;border-radius:8px;font-weight:800;font-size:11px}.hero-btn svg{width:15px;height:15px}
+    .hero-visual{margin-left:auto;position:relative;width:290px;height:150px;align-self:center;display:grid;place-items:center}.hero-plate{position:absolute;height:115px;width:177px;top:15px;left:44px;transform:rotate(-9deg);background:#ffffff18;border:1px solid #ffffff55;border-radius:18px;box-shadow:0 15px 30px #160f6530;backdrop-filter:blur(5px);animation:float 5.4s ease-in-out infinite}.hero-plate svg{width:50px;height:50px;color:#e0d3ff;position:absolute;top:19px;left:62px}.hero-chip{position:absolute;background:#fff;border-radius:11px;box-shadow:0 15px 25px #18125640;font-size:10px;font-weight:800;padding:10px 13px;display:flex;align-items:center;gap:7px;color:#37345b;animation:float 5.4s ease-in-out infinite}.hero-chip svg{width:16px;height:16px}.hero-chip.one{right:6px;top:4px;animation-delay:-1s}.hero-chip.two{bottom:5px;left:11px;animation-delay:-2.6s}.hero-chip.one svg{color:var(--purple)}.hero-chip.two svg{color:var(--green)}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:20px}.stat-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:19px 19px 17px;box-shadow:var(--shadow);overflow:hidden;transition:transform .22s,box-shadow .22s}.stat-card:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(35,30,75,.075)}.stat-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.stat-ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center}.stat-ic.purple{background:#f0eafd;color:#7747e6}.stat-ic.blue{background:#e8f5ff;color:#2a9ee1}.stat-ic.amber{background:#fff4e6;color:#df9b30}.stat-ic.green{background:#e4f8ef;color:#2aaa77}.stat-ic svg{width:21px;height:21px}.stat-spark{width:75px;height:30px;opacity:.76}.stat-name{margin-top:13px;color:var(--muted);font-size:11.5px;font-weight:700}.stat-num{font-family:Manrope,sans-serif;font-size:27px;font-weight:800;letter-spacing:-1px;margin-top:3px;color:var(--text)}.stat-note{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);margin-top:7px}.stat-note strong{color:#1aab79;font-weight:800}.stat-note svg{width:12px;height:12px}
+    .panel-grid{display:grid;grid-template-columns:minmax(0,1.67fr) minmax(310px,1fr);gap:18px;margin-bottom:18px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:21px 23px;box-shadow:var(--shadow);min-width:0}.panel-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:19px}.panel-title{font-family:Manrope,sans-serif;font-size:14.5px;font-weight:800;margin:0;letter-spacing:-.2px}.panel-sub{color:var(--muted);font-size:10.5px;line-height:1.4;margin-top:5px}.panel-link{color:#8154ec;border:none;background:none;font-size:10.5px;font-weight:800;white-space:nowrap;padding:6px 0}.panel-link:hover{text-decoration:underline}.period-control{display:flex;gap:4px;padding:3px;border-radius:9px;background:var(--surface-2);border:1px solid var(--line)}.period-control button{border:0;background:none;color:var(--muted);border-radius:7px;padding:7px 10px;font-size:10px;font-weight:800}.period-control button.active{color:#7044e6;background:var(--surface);box-shadow:0 2px 7px #2d254612}
+    .legend-inline{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.legend-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px}.legend-inline span{font-size:10px;color:var(--muted);font-weight:700}.chart-wrap{position:relative;height:255px}.chart-wrap svg{width:100%;height:100%;display:block;overflow:visible}.chart-axis{fill:var(--muted);font-size:10.5px;font-family:'DM Sans',sans-serif}.chart-gridline{stroke:var(--line);stroke-dasharray:4 5;stroke-width:1}.chart-tooltip{pointer-events:none;position:absolute;background:#151632;color:#fff;border-radius:9px;padding:7px 10px;font-size:11px;transform:translate(-50%,-100%);box-shadow:0 10px 22px #0e102944;opacity:0;transition:opacity .12s;white-space:nowrap;z-index:3}
+    .donut-section{display:flex;gap:16px;align-items:center;justify-content:center;min-height:245px}.donut-graphic{position:relative;width:184px;height:184px;flex:none}.donut-graphic svg{width:100%;height:100%;transform:rotate(-90deg)}.donut-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}.donut-center b{font-family:Manrope,sans-serif;font-size:28px;letter-spacing:-1px}.donut-center span{font-size:11px;color:var(--muted);margin-top:2px}.donut-legend{display:grid;gap:13px;flex:1;min-width:0}.donut-item{display:grid;grid-template-columns:9px 1fr auto;gap:8px;align-items:center;font-size:10.5px;color:var(--muted)}.donut-item .label{min-width:0}.donut-item strong{color:var(--text);font-weight:800}
+    .documents-bars{display:grid;gap:18px;padding:5px 0 7px}.doc-row{display:grid;grid-template-columns:130px 1fr 32px;gap:13px;align-items:center}.doc-row .doc-label{font-size:11px;color:var(--text);font-weight:700}.doc-track{height:9px;background:var(--surface-2);border-radius:99px;overflow:hidden}.doc-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#6952e6,#a883f8);transition:width .6s ease}.doc-row:nth-child(2) .doc-fill{background:linear-gradient(90deg,#26a2df,#7ccbf7)}.doc-row:nth-child(3) .doc-fill{background:linear-gradient(90deg,#e9a84c,#f3c987)}.doc-row:nth-child(4) .doc-fill{background:linear-gradient(90deg,#42b59c,#90decb)}.doc-row:nth-child(5) .doc-fill{background:linear-gradient(90deg,#7777d8,#b3b8fb)}.doc-count{font-size:11px;text-align:right;font-weight:800}.bar-foot{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted);border-top:1px dashed var(--line);margin-top:17px;padding-top:14px}.bar-foot svg{width:14px;height:14px;color:var(--blue)}
+    .agenda-list{display:grid;gap:4px}.agenda-row{display:flex;gap:13px;align-items:center;padding:11px 7px;border-radius:10px;transition:background .2s;cursor:pointer}.agenda-row:hover{background:var(--surface-2)}.agenda-date{width:42px;min-width:42px;height:48px;background:#f4efff;color:#7649dc;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-direction:column}.agenda-date b{font-family:Manrope,sans-serif;font-size:18px;line-height:1}.agenda-date span{font-weight:800;font-size:9px;letter-spacing:.6px;margin-top:3px}.agenda-info{flex:1;min-width:0}.agenda-info strong{display:block;font-size:11.3px;margin-bottom:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.agenda-info small{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:10px}.agenda-info small svg{width:12px;height:12px}.agenda-label{font-size:9px;color:#875be4;font-weight:700;background:#f2edff;padding:6px 8px;border-radius:7px;white-space:nowrap}
+    .table-toolbar{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:14px}.search-field{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:0 11px;color:var(--muted);min-width:240px;background:var(--surface);height:37px}.search-field svg{width:16px;height:16px}.search-field input{border:0;outline:none;background:transparent;color:var(--text);font-size:11px;width:100%;min-width:0}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th{font-size:10px;font-weight:800;color:var(--muted);text-align:left;background:var(--surface-2);height:42px}td{font-size:11.3px;border-bottom:1px solid var(--line);height:53px;color:var(--text)}td:first-child,th:first-child{padding-left:15px}td:last-child,th:last-child{padding-right:15px}tbody tr:hover{background:var(--surface-2)}.code-link{font-weight:800;color:#7446e1}.status{font-size:10px;border-radius:7px;padding:6px 8px;display:inline-flex;align-items:center;gap:6px;font-weight:800}.status:before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}.status.progress{background:#edf3ff;color:#478ce0}.status.closed{background:#e5f7f0;color:#289674}.status.derived{background:#fff0dd;color:#c78531}.status.received{background:#f1eaff;color:#8054e2}.status.draft{background:#f3f3f7;color:#7e8298}.table-action{border:0;background:transparent;color:var(--muted);padding:6px;border-radius:7px}.table-action:hover{color:var(--purple);background:var(--surface-2)}.table-action svg{height:17px;width:17px}.table-footer{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:10px;margin-top:16px;gap:10px}.table-footer button{font-size:10px;border:0;background:none;color:#7d54e8;font-weight:800}
+    .privacy-footer{color:var(--muted);font-size:10.5px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:23px;padding:0 3px}.privacy-footer span{display:flex;align-items:center;gap:8px}.privacy-footer svg{height:15px;width:15px;color:#8c7deb}
+    .popover{position:absolute;top:66px;right:93px;width:335px;z-index:40;background:var(--surface);border:1px solid var(--line);box-shadow:0 20px 45px #191a4a25;border-radius:14px;padding:15px;display:none}.popover.show{display:block}.popover h3{font-size:13px;margin:2px 0 12px}.notice{display:flex;gap:10px;padding:11px 4px;border-top:1px solid var(--line);font-size:11px}.notice svg{color:var(--purple);height:18px;width:18px}.notice b{display:block;margin-bottom:5px}.notice span{font-size:10px;color:var(--muted)}
+    .module-view{display:none}.module-view.active{display:block}.dashboard-view.hidden{display:none}.module-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:25px;box-shadow:var(--shadow)}.module-card h2{font:800 18px Manrope,sans-serif;margin:0 0 8px}.module-card p{color:var(--muted);font-size:12px;line-height:1.65}.require-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.require-item{display:flex;gap:12px;background:var(--surface-2);border:1px solid var(--line);padding:14px;border-radius:10px;color:var(--text);font-size:11.3px;line-height:1.5}.require-code{color:#7443df;background:#eae3fc;font-weight:800;height:25px;padding:5px 7px;border-radius:6px;font-size:10px}.module-note{border-left:3px solid #a080e8;background:var(--surface-2);padding:13px;border-radius:5px;font-size:11px;color:var(--muted);line-height:1.6}
+    .modal-backdrop{position:fixed;inset:0;background:#101027a8;z-index:100;display:none;align-items:center;justify-content:center;padding:15px;backdrop-filter:blur(5px)}.modal-backdrop.show{display:flex}.modal{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:20px;width:min(95vw,490px);box-shadow:0 30px 100px #11112b4d;padding:25px}.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:13px}.modal h2{font:800 18px Manrope,sans-serif;margin:0 0 6px}.modal p{font-size:11px;color:var(--muted);margin:0;line-height:1.6}.modal-grid{display:grid;gap:12px;margin:19px 0}.modal label{font-size:11px;font-weight:800;display:grid;gap:7px}.modal select,.modal input{border:1px solid var(--line);background:var(--surface-2);color:var(--text);border-radius:9px;padding:11px;font-size:12px;width:100%}.modal-buttons{display:flex;justify-content:flex-end;gap:9px}.toast{position:fixed;bottom:25px;right:25px;background:#1e2047;color:white;padding:14px 17px;border-radius:11px;font-size:12px;box-shadow:0 18px 35px #11143633;z-index:150;display:none;max-width:340px}.toast.show{display:block;animation:fadeUp .3s}
+    #mobile-menu{display:none}.mobile-scrim{display:none}
+    @keyframes float{0%,100%{transform:translateY(0) rotate(-9deg)}50%{transform:translateY(-8px) rotate(-9deg)}}@keyframes fadeUp{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:1390px){.main{padding:26px 28px 35px}.topbar{padding:0 28px}.sidebar{width:228px;min-width:228px}.brand{padding:24px 17px}.donut-graphic{width:154px;height:154px}.panel{padding:19px}.stats-grid{gap:12px}.doc-row{grid-template-columns:110px 1fr 26px}}
+    @media(max-width:1100px){.sidebar{width:218px;min-width:218px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.panel-grid{grid-template-columns:1fr}.donut-section{justify-content:flex-start;gap:27px}.donut-graphic{width:175px;height:175px}.donut-legend{max-width:290px}.hero-visual{width:190px}.hero-plate{left:5px}.hero-chip.one{right:-20px}.page-heading{flex-wrap:wrap}}
+    @media(max-width:760px){.sidebar{position:fixed;left:0;top:0;transform:translateX(-110%);transition:transform .23s;width:255px;min-width:255px}.sidebar.open{transform:translateX(0)}.mobile-scrim.show{display:block;position:fixed;inset:0;background:#11152b94;z-index:25}.topbar{height:66px;padding:0 16px}.main{padding:19px 15px 28px}#mobile-menu{display:grid}.profile .profile-names,.profile .chev{display:none}.profile{padding-left:9px}.breadcrumbs span:first-child{display:none}.heading-tools{width:100%;justify-content:space-between}.soft-pill{font-size:9px}.page-heading h1{font-size:23px}.page-heading{margin-bottom:19px}.hero{padding:23px;min-height:185px}.hero h2{font-size:20px}.hero p{font-size:11px}.hero-visual{display:none}.stats-grid{gap:11px}.stat-card{padding:14px}.stat-num{font-size:24px}.panel-grid{gap:13px;margin-bottom:13px}.panel{padding:17px}.chart-wrap{height:215px}.donut-section{flex-direction:column;align-items:stretch}.donut-graphic{margin:0 auto}.donut-legend{max-width:none;grid-template-columns:repeat(2,1fr);gap:10px}.doc-row{grid-template-columns:97px 1fr 23px;gap:8px}.table-toolbar{flex-wrap:wrap}.search-field{min-width:180px;flex:1}.require-list{grid-template-columns:1fr}.privacy-footer{flex-wrap:wrap}.top-actions{gap:6px}}
+    @media(max-width:420px){.top-actions .icon-btn:nth-of-type(2){display:none}.heading-tools .secondary-btn{display:none}.heading-tools .primary-btn{margin-left:auto}.stat-note{font-size:9px}.donut-legend{grid-template-columns:1fr 1fr}.panel-header{flex-wrap:wrap}.popover{right:10px;left:10px;width:auto}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body data-theme="light">
+  <svg style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.3"/><rect x="14" y="3" width="7" height="7" rx="1.3"/><rect x="3" y="14" width="7" height="7" rx="1.3"/><rect x="14" y="14" width="7" height="7" rx="1.3"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3z"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="17" rx="2"/><path d="M9 5V3h6v2M9 11h6M9 15h6"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v17M5 7h14M3 20h18M5 7l-3 6h6zm14 0-3 6h6z"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM13 2v7h7M8 13h8M8 17h8"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M8 14h2M14 14h2M8 18h2"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M2 20v-2a6 6 0 0 1 12 0v2zM17 11a3 3 0 1 0-1-5.8M18 14a5 5 0 0 1 4 5v1h-5"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l-1.8 1.8a1.7 1.7 0 0 0-1.9-.3l-1.3.5-.5 2.1h-2.6l-.5-2.1-1.3-.5a1.7 1.7 0 0 0-1.9.3l-1.8-1.8a1.7 1.7 0 0 0 .3-1.9L5.9 14l-2.1-.5v-2.6l2.1-.5.5-1.3a1.7 1.7 0 0 0-.3-1.9l1.8-1.8a1.7 1.7 0 0 0 1.9.3l1.3-.5.5-2.1h2.6l.5 2.1 1.3.5a1.7 1.7 0 0 0 1.9-.3l1.8 1.8a1.7 1.7 0 0 0-.3 1.9l.5 1.3 2.1.5v2.6l-2.1.5z"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 9a3 3 0 1 1 5.2 2 4 4 0 0 0-2.2 3M12 18h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="M16 16l5 5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4m0-14.2-1.4 1.4M6.3 17.7l-1.4 1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 13A9 9 0 0 1 11 3a9 9 0 1 0 10 10"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 4v5c0 6-3.2 9.5-8 11-4.8-1.5-8-5-8-11V6zM8 12l3 3 5-5"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="m3 17 7-7 4 4 7-8M15 6h6v6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 3"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8zM19 16l.7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-notes" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+  </svg>
+  <div class="mobile-scrim" id="mobile-scrim"></div>
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="Menú de navegación">
+      <div class="brand">
+        <div class="brandmark" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></div>
+        <div><h2>SISTDEMUNA</h2><span>Gestión de casos y documentos</span></div>
+      </div>
+      <nav class="nav-scroll" id="main-nav">
+        <div class="nav-label">PANEL PRINCIPAL</div>
+        <button class="nav-link active" data-view="dashboard"><svg class="icon"><use href="#i-grid"/></svg>Resumen general</button>
+        <button class="nav-link" data-view="casos"><svg class="icon"><use href="#i-folder"/></svg>Casos y expedientes</button>
+        <button class="nav-link" data-view="fichas"><svg class="icon"><use href="#i-clipboard"/></svg>Fichas de atención</button>
+        <button class="nav-link" data-view="conciliacion"><svg class="icon"><use href="#i-scale"/></svg>Actas y conciliación</button>
+        <button class="nav-link" data-view="documentos"><svg class="icon"><use href="#i-doc"/></svg>Documentos PDF</button>
+        <div class="nav-label">ORGANIZACIÓN</div>
+        <button class="nav-link" data-view="agenda"><svg class="icon"><use href="#i-calendar"/></svg>Agenda y actividades</button>
+        <button class="nav-link" data-view="notificaciones"><svg class="icon"><use href="#i-bell"/></svg>Notificaciones</button>
+        <div class="nav-label">ADMINISTRACIÓN</div>
+        <button class="nav-link" data-view="personal"><svg class="icon"><use href="#i-users"/></svg>Usuarios y personal</button>
+        <button class="nav-link" data-view="ajustes"><svg class="icon"><use href="#i-settings"/></svg>Configuración</button>
+      </nav>
+      <div class="sidebar-help"><svg class="icon"><use href="#i-shield"/></svg><b>Protección de la información</b><p>El acceso a expedientes debe respetar los permisos y la confidencialidad institucional.</p><button id="privacy-btn">Ver recomendaciones</button></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="icon-btn" id="mobile-menu" aria-label="Abrir menú"><svg class="icon"><use href="#i-menu"/></svg></button>
+          <div class="breadcrumbs"><span>SISTDEMUNA</span><span>›</span><strong id="breadcrumb-text">Resumen general</strong></div>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="theme-toggle" title="Cambiar tema claro/oscuro" aria-label="Cambiar tema"><svg class="icon"><use href="#i-moon"/></svg></button>
+          <button class="icon-btn" id="notifications-toggle" title="Notificaciones de demostración" aria-label="Notificaciones"><svg class="icon"><use href="#i-bell"/></svg><span class="dot"></span></button>
+          <div class="profile"><div class="avatar">DM</div><div class="profile-names"><b>Personal DEMUNA</b><small>Cuenta demostrativa</small></div><svg class="icon chev"><use href="#i-chevron"/></svg></div>
+        </div>
+      </header>
+      <div id="notifications-popover" class="popover" role="dialog" aria-label="Notificaciones"><h3>Notificaciones ilustrativas</h3><div class="notice"><svg class="icon"><use href="#i-calendar"/></svg><div><b>Actividad programada</b><span>12 de noviembre · 09:00 a. m.</span></div></div><div class="notice"><svg class="icon"><use href="#i-clipboard"/></svg><div><b>Ficha de seguimiento pendiente</b><span>Ejemplo de aviso para el expediente EXP-2026-0214</span></div></div><div class="notice"><svg class="icon"><use href="#i-doc"/></svg><div><b>Documento generado</b><span>Registro de ejemplo · Sin datos reales</span></div></div><button class="panel-link" data-go="notificaciones">Ver sección de notificaciones</button></div>
+      <main class="main" id="main-content">
+        <div class="page-heading">
+          <div><h1 id="main-title">Panel de control</h1><p id="main-subtitle">Miércoles, 11 de noviembre de 2026 · Seguimiento de la atención documental</p></div>
+          <div class="heading-tools"><span class="soft-pill">DATOS DE DEMOSTRACIÓN</span><button class="secondary-btn" id="export-btn"><svg class="icon"><use href="#i-download"/></svg>Exportar CSV</button><button class="primary-btn" id="new-case-btn"><svg class="icon"><use href="#i-plus"/></svg>Nueva atención</button></div>
+        </div>
+        <div class="dashboard-view" id="dashboard-view">
+          <section class="hero" aria-label="Presentación del panel"><div class="hero-copy"><div class="hero-eyebrow"><span class="shine"></span>GESTIÓN MUNICIPAL ORGANIZADA</div><h2>Cada atención merece un seguimiento claro.</h2><p>Consulta el avance de los casos, localiza fichas y organiza los documentos de la DEMUNA desde un mismo espacio.</p><button class="hero-btn" data-go="casos">Explorar expedientes <svg class="icon"><use href="#i-arrow"/></svg></button></div><div class="hero-visual" aria-hidden="true"><div class="hero-plate"><svg class="icon"><use href="#i-folder"/></svg></div><div class="hero-chip one"><svg class="icon"><use href="#i-check"/></svg>Registro organizado</div><div class="hero-chip two"><svg class="icon"><use href="#i-shield"/></svg>Acceso protegido</div></div></section>
+          <section class="stats-grid" aria-label="Indicadores de demostración">
+            <div class="stat-card"><div class="stat-top"><span class="stat-ic purple"><svg class="icon"><use href="#i-folder"/></svg></span><svg class="stat-spark" viewBox="0 0 80 31" aria-hidden="true"><path d="M2 25Q10 20 17 21T32 10T48 15T64 7T78 3" fill="none" stroke="#a47bf8" stroke-width="2.5" stroke-linecap="round"/></svg></div><div class="stat-name">Casos registrados</div><div class="stat-num" id="stat-cases">—</div><div class="stat-note"><svg class="icon"><use href="#i-calendar"/></svg><span id="stat-period">Durante el período</span></div></div>
+            <div class="stat-card"><div class="stat-top"><span class="stat-ic blue"><svg class="icon"><use href="#i-clipboard"/></svg></span><svg class="stat-spark" viewBox="0 0 80 31" aria-hidden="true"><path d="M2 24Q14 6 22 17T39 19T58 8T78 4" fill="none" stroke="#6bc5f4" stroke-width="2.5" stroke-linecap="round"/></svg></div><div class="stat-name">Fichas de seguimiento</div><div class="stat-num" id="stat-followup">—</div><div class="stat-note"><svg class="icon"><use href="#i-notes"/></svg>Registros documentales</div></div>
+            <div class="stat-card"><div class="stat-top"><span class="stat-ic amber"><svg class="icon"><use href="#i-scale"/></svg></span><svg class="stat-spark" viewBox="0 0 80 31" aria-hidden="true"><path d="M2 24Q18 21 22 13T43 19T58 11T78 7" fill="none" stroke="#f2bc70" stroke-width="2.5" stroke-linecap="round"/></svg></div><div class="stat-name">Actas registradas</div><div class="stat-num" id="stat-actas">—</div><div class="stat-note"><svg class="icon"><use href="#i-doc"/></svg>Trámites de atención y conciliación</div></div>
+            <div class="stat-card"><div class="stat-top"><span class="stat-ic green"><svg class="icon"><use href="#i-calendar"/></svg></span><svg class="stat-spark" viewBox="0 0 80 31" aria-hidden="true"><path d="M2 24Q12 12 20 14T40 12T60 10T78 3" fill="none" stroke="#63c7a5" stroke-width="2.5" stroke-linecap="round"/></svg></div><div class="stat-name">Actividades agendadas</div><div class="stat-num" id="stat-events">—</div><div class="stat-note"><svg class="icon"><use href="#i-clock"/></svg>Programación del período</div></div>
+          </section>
+          <div class="panel-grid">
+            <section class="panel" id="cases-chart-panel"><div class="panel-header"><div><h3 class="panel-title">Registro de casos por mes</h3><div class="panel-sub">Cantidad de casos ingresados a la DEMUNA · Ejemplo 2026</div></div><div class="period-control" role="group" aria-label="Filtrar período"><button data-period="month">Mes</button><button data-period="quarter">Trimestre</button><button data-period="year" class="active">Año</button></div></div><div class="chart-wrap"><svg id="cases-chart" role="img" aria-label="Gráfico ilustrativo de casos registrados por mes" viewBox="0 0 760 265" preserveAspectRatio="none"></svg><div id="cases-tooltip" class="chart-tooltip"></div></div></section>
+            <section class="panel" id="forms-chart-panel"><div class="panel-header"><div><h3 class="panel-title">Fichas por tipo</h3><div class="panel-sub">Recepción, entrevista, visita y seguimiento</div></div><button class="panel-link" data-go="fichas">Ver fichas <span aria-hidden="true">↗</span></button></div><div class="donut-section"><div class="donut-graphic"><svg viewBox="0 0 210 210" role="img" aria-label="Gráfico de distribución ilustrativa de fichas" id="forms-donut"></svg><div class="donut-center"><b id="forms-total">—</b><span>fichas</span></div></div><div class="donut-legend" id="forms-legend"></div></div></section>
+          </div>
+          <div class="panel-grid">
+            <section class="panel" id="documents-chart-panel"><div class="panel-header"><div><h3 class="panel-title">Documentos por formato</h3><div class="panel-sub">Documentación elaborada y generada en el período</div></div><button class="panel-link" data-go="documentos">Ver documentos <span aria-hidden="true">↗</span></button></div><div class="documents-bars" id="doc-bars"></div><div class="bar-foot"><svg class="icon"><use href="#i-help"/></svg>Los formatos y conteos requieren validación con la base de datos del sistema.</div></section>
+            <section class="panel" id="agenda-panel"><div class="panel-header"><div><h3 class="panel-title">Próximas actividades</h3><div class="panel-sub">Agenda institucional · Eventos ficticios</div></div><button class="panel-link" data-go="agenda">Ver agenda <span aria-hidden="true">↗</span></button></div><div class="agenda-list" id="agenda-list"></div></section>
+          </div>
+          <section class="panel" id="recent-cases-panel"><div class="panel-header" style="margin-bottom:12px"><div><h3 class="panel-title">Expedientes recientes</h3><div class="panel-sub">Consulta rápida de referencias internas · Sin datos personales</div></div><button class="panel-link" data-go="casos">Ver todos <span aria-hidden="true">↗</span></button></div><div class="table-toolbar"><div class="search-field"><svg class="icon"><use href="#i-search"/></svg><input id="case-search" type="search" placeholder="Buscar expediente o trámite" aria-label="Buscar expediente o trámite"/></div><button class="secondary-btn" id="clear-search-btn"><svg class="icon"><use href="#i-check"/></svg>Limpiar filtro</button></div><div class="table-scroll"><table><thead><tr><th>Expediente</th><th>Tipo de registro</th><th>Fecha</th><th>Situación ilustrativa</th><th>Acción</th></tr></thead><tbody id="cases-table-body"></tbody></table></div><div class="table-footer"><span id="table-count">Mostrando expedientes ilustrativos</span><button data-go="casos">Consultar módulo de expedientes</button></div></section>
+        </div>
+        <section class="module-view" id="module-view" aria-live="polite"><div class="module-card"><button class="secondary-btn" data-go="dashboard" style="margin-bottom:20px">← Volver al panel</button><h2 id="module-title"></h2><p id="module-description"></p><div class="require-list" id="module-requirements"></div><div class="module-note"><b>Estado del prototipo:</b> este apartado organiza funciones descritas en la matriz, pero no sustituye la implementación ni confirma que estén operativas. Para conectar este módulo deben verificarse permisos, tablas, campos y reglas de negocio.</div></div></section>
+        <footer class="privacy-footer"><span><svg class="icon"><use href="#i-lock"/></svg>Prototipo conceptual. No utilizar para almacenar información real de niñas, niños o adolescentes.</span><span>Diseño SISTDEMUNA · 2026</span></footer>
+      </main>
+    </div>
+  </div>
+  <div id="modal-backdrop" class="modal-backdrop" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-header"><div><h2 id="modal-title">Nueva atención (demostración)</h2><p>Solo se registra temporalmente en esta página. No escribas datos personales.</p></div><button class="icon-btn" id="close-modal" aria-label="Cerrar ventana">✕</button></div><form id="demo-case-form"><div class="modal-grid"><label>Tipo de registro<select id="demo-case-type" required><option value="Recepción">Recepción de caso</option><option value="Entrevista">Ficha de entrevista</option><option value="Visita">Ficha de visita</option><option value="Seguimiento">Ficha de seguimiento</option></select></label><label>Situación ilustrativa<select id="demo-case-status" required><option value="Recepción">Recepción</option><option value="En seguimiento">En seguimiento</option><option value="Concluido">Concluido</option><option value="Derivado">Derivado</option></select></label></div><div class="modal-buttons"><button class="secondary-btn" type="button" id="cancel-modal">Cancelar</button><button class="primary-btn" type="submit">Agregar registro de ejemplo</button></div></form></div></div>
+  <div class="toast" role="status" aria-live="polite" id="toast"></div>
+  <script>
+  (()=>{
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const svgIcon=(name)=>`<svg class="icon" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+    // Conjunto de datos estrictamente FICTICIO: NO proviene de expedientes ni de la base de datos.
+    const monthly=[
+      {label:'Ene',full:'Enero',cases:12,followup:8,actas:4,events:3,forms:[12,9,3,8],docs:[5,3,2,2,4]},
+      {label:'Feb',full:'Febrero',cases:14,followup:9,actas:5,events:4,forms:[14,8,4,9],docs:[6,3,3,2,4]},
+      {label:'Mar',full:'Marzo',cases:16,followup:10,actas:5,events:3,forms:[16,11,5,10],docs:[6,4,4,2,5]},
+      {label:'Abr',full:'Abril',cases:20,followup:13,actas:7,events:6,forms:[20,13,6,13],docs:[8,5,3,3,6]},
+      {label:'May',full:'Mayo',cases:18,followup:11,actas:6,events:5,forms:[18,12,6,11],docs:[8,3,3,3,6]},
+      {label:'Jun',full:'Junio',cases:21,followup:14,actas:8,events:4,forms:[21,15,9,14],docs:[9,5,4,3,8]},
+      {label:'Jul',full:'Julio',cases:22,followup:13,actas:8,events:4,forms:[22,14,8,13],docs:[10,6,5,4,8]},
+      {label:'Ago',full:'Agosto',cases:26,followup:17,actas:9,events:5,forms:[26,17,9,17],docs:[11,7,5,4,9]},
+      {label:'Sep',full:'Septiembre',cases:27,followup:19,actas:10,events:5,forms:[27,19,12,19],docs:[12,8,6,4,10]},
+      {label:'Oct',full:'Octubre',cases:24,followup:16,actas:8,events:5,forms:[24,18,11,16],docs:[11,6,6,5,10]},
+      {label:'Nov',full:'Noviembre',cases:15,followup:11,actas:5,events:3,forms:[15,12,6,11],docs:[8,5,3,3,7]}
+    ];
+    const docNames=['Actas','Invitaciones','Solicitudes','Informes','Fichas PDF'];
+    const formNames=['Recepción','Entrevista','Visita','Seguimiento'];
+    const formColors=['#7546e8','#269fe6','#f0b357','#39bca2'];
+    const initialCases=[
+      {code:'EXP-2026-0215',type:'Recepción',date:'10 nov 2026',status:'Recepción'},
+      {code:'EXP-2026-0214',type:'Seguimiento',date:'10 nov 2026',status:'En seguimiento'},
+      {code:'EXP-2026-0213',type:'Entrevista',date:'09 nov 2026',status:'En seguimiento'},
+      {code:'EXP-2026-0212',type:'Visita',date:'08 nov 2026',status:'Derivado'},
+      {code:'EXP-2026-0211',type:'Seguimiento',date:'07 nov 2026',status:'Concluido'},
+      {code:'EXP-2026-0210',type:'Recepción',date:'06 nov 2026',status:'Recepción'},
+      {code:'EXP-2026-0209',type:'Entrevista',date:'05 nov 2026',status:'En seguimiento'}
+    ];
+    const upcoming=[
+      {day:'12',month:'NOV',title:'Reunión de coordinación',time:'09:00 a. m.',tag:'Agenda'},
+      {day:'13',month:'NOV',title:'Revisión de expedientes',time:'10:30 a. m.',tag:'Interna'},
+      {day:'16',month:'NOV',title:'Seguimiento de compromisos',time:'11:00 a. m.',tag:'Atención'},
+      {day:'18',month:'NOV',title:'Actividad comunitaria',time:'03:00 p. m.',tag:'Actividad'}
+    ];
+    const modules={
+      casos:{title:'Gestión de casos y expedientes',description:'Registro, consulta y búsqueda de la información asociada a los casos atendidos por la DEMUNA.',req:[['RF06','Registrar información de casos atendidos'],['RF12','Buscar y consultar registros y expedientes'],['RF13','Editar registros autorizados'],['RF14','Eliminar registros de acuerdo con reglas definidas'],['RF19','Registrar derivaciones de casos'],['RF20','Registrar conclusiones de casos']]},
+      fichas:{title:'Fichas de atención y seguimiento',description:'Documentación de la recepción del caso y del desarrollo de la atención institucional.',req:[['RF07','Registrar fichas de recepción'],['RF08','Registrar fichas de entrevista'],['RF09','Registrar fichas de visita'],['RF10','Registrar fichas de seguimiento'],['RF11','Consultar y gestionar fichas existentes']]},
+      conciliacion:{title:'Actas y conciliación',description:'Registro documental vinculado a actuaciones, conciliaciones, solicitudes y compromisos.',req:[['RF15','Registrar actas de atención y conciliación'],['RF17','Gestionar invitaciones y solicitudes de conciliación'],['RF18','Registrar compromisos y resultados de conciliación']]},
+      documentos:{title:'Generación de documentos PDF',description:'Plantillas de documentos y generación de formatos institucionales vinculados a los casos.',req:[['RF16','Generar documentos PDF a partir de formatos establecidos'],['RNF07','Presentar documentos legibles y ordenados'],['RF12','Buscar expedientes y registros asociados']]},
+      agenda:{title:'Agenda y actividades',description:'Programación y consulta de eventos vinculados al trabajo de la DEMUNA.',req:[['RF21','Registrar y consultar eventos o actividades programadas'],['RF22','Mostrar avisos vinculados a actividades según configuración']]},
+      notificaciones:{title:'Notificaciones',description:'Avisos relacionados con expedientes y actividades, sujetos a configuración y validación.',req:[['RF22','Mostrar notificaciones relacionadas con expedientes o actividades'],['RNF03','Restringir el acceso según roles y permisos']]},
+      personal:{title:'Usuarios y trabajadores',description:'Administración del acceso y de la información de personal institucional.',req:[['RF01','Iniciar sesión mediante credenciales válidas'],['RF02','Cerrar sesión'],['RF03','Registrar usuarios del sistema'],['RF05','Registrar y consultar datos de trabajadores'],['RNF03','Aplicar permisos por rol']]},
+      ajustes:{title:'Configuración y seguridad',description:'Definición de permisos, validaciones, respaldos y parámetros del sistema.',req:[['RNF02','Autenticación de funcionalidades'],['RNF03','Roles y permisos'],['RNF04','Confidencialidad de expedientes'],['RNF05','Validación y mensajes comprensibles'],['RNF06','Integridad de información'],['RNF09','Respaldo y recuperación']]}
+    };
+    let period='year', cases=initialCases.map(x=>({...x})), newlyAdded=0;
+    const currentRows=()=>period==='month'?monthly.slice(-1):period==='quarter'?monthly.slice(-3):monthly;
+    const sum=(arr,key)=>arr.reduce((n,x)=>n+(x[key]||0),0);
+    const totals=(rows,key)=>[0,1,2,3,4].map(i=>rows.reduce((a,r)=>a+(r[key][i]||0),0));
+    const number=n=>new Intl.NumberFormat('es-PE').format(n);
+    const statusClass=s=>({'Recepción':'received','En seguimiento':'progress','Concluido':'closed','Derivado':'derived'}[s]||'draft');
+    function renderStats(){
+      const rows=currentRows(), counts={cases:sum(rows,'cases')+(newlyAdded && period!=='quarter'?newlyAdded:period==='quarter'?newlyAdded:0),followup:sum(rows,'followup'),actas:sum(rows,'actas'),events:sum(rows,'events')};
+      $('stat-cases').textContent=number(counts.cases);$('stat-followup').textContent=number(counts.followup);$('stat-actas').textContent=number(counts.actas);$('stat-events').textContent=number(counts.events);
+      $('stat-period').textContent={month:'Noviembre 2026',quarter:'Sep. – nov. 2026',year:'Enero – noviembre 2026'}[period];
+    }
+    function pathSmooth(points){
+      if(!points.length)return '';
+      if(points.length===1)return `M ${points[0][0]} ${points[0][1]}`;
+      let d=`M ${points[0][0]} ${points[0][1]}`;
+      for(let i=0;i<points.length-1;i++){
+        const p0=points[Math.max(0,i-1)],p1=points[i],p2=points[i+1],p3=points[Math.min(points.length-1,i+2)];
+        const cp1x=p1[0]+(p2[0]-p0[0])/6,cp1y=p1[1]+(p2[1]-p0[1])/6;
+        const cp2x=p2[0]-(p3[0]-p1[0])/6,cp2y=p2[1]-(p3[1]-p1[1])/6;
+        d+=` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2[0]} ${p2[1]}`;
+      }return d;
+    }
+    function renderChart(){
+      const rows=currentRows();const svg=$('cases-chart');const W=760,H=265,pad={l:36,r:24,t:20,b:37};const plotH=H-pad.t-pad.b,plotW=W-pad.l-pad.r;const all=rows.map(x=>x.cases);let yMax=Math.max(10,Math.ceil(Math.max(...all)/10)*10);const y=v=>pad.t+plotH-(v/yMax)*plotH;const x=i=>pad.l+(rows.length===1?plotW/2:i*plotW/(rows.length-1));
+      const coords=rows.map((r,i)=>[x(i),y(r.cases)]);const line=pathSmooth(coords);
+      let out=`<defs><linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8b64eb" stop-opacity=".26"/><stop offset="1" stop-color="#8b64eb" stop-opacity="0"/></linearGradient></defs>`;
+      for(let i=0;i<=4;i++){let value=yMax-i*yMax/4;let yy=y(value);out+=`<line class="chart-gridline" x1="${pad.l}" y1="${yy}" x2="${W-pad.r}" y2="${yy}"/><text class="chart-axis" x="${pad.l-10}" y="${yy+4}" text-anchor="end">${Math.round(value)}</text>`}
+      if(rows.length===1){let xx=x(0);out+=`<rect x="${xx-32}" y="${y(rows[0].cases)}" width="64" height="${pad.t+plotH-y(rows[0].cases)}" rx="7" fill="#8054e9" opacity=".9"/>`;}
+      else{const area=`${line} L ${coords.at(-1)[0]} ${pad.t+plotH} L ${coords[0][0]} ${pad.t+plotH} Z`;out+=`<path d="${area}" fill="url(#chart-grad)"/><path d="${line}" fill="none" stroke="#8253ed" stroke-width="3.3" stroke-linecap="round"/>`;}
+      const labelEvery=rows.length>8?1:1;rows.forEach((r,i)=>{
+        if(i%labelEvery===0)out+=`<text class="chart-axis" x="${x(i)}" y="${H-10}" text-anchor="middle">${r.label}</text>`;
+        out+=`<circle class="hover-dot" data-value="${r.cases}" data-month="${r.full}" cx="${x(i)}" cy="${y(r.cases)}" r="${rows.length===1?7:5}" fill="#fff" stroke="#8253ed" stroke-width="3" tabindex="0"><title>${r.full}: ${r.cases} casos ilustrativos</title></circle>`;
+      });svg.innerHTML=out;
+      const tip=$('cases-tooltip');svg.querySelectorAll('.hover-dot').forEach(dot=>{
+        function display(){let box=svg.getBoundingClientRect(),parent=svg.parentElement.getBoundingClientRect();tip.textContent=`${dot.dataset.month}: ${dot.dataset.value} casos`;tip.style.left=`${(Number(dot.getAttribute('cx'))/W)*box.width}px`;tip.style.top=`${(Number(dot.getAttribute('cy'))/H)*box.height-6}px`;tip.style.opacity='1'}
+        dot.addEventListener('mouseenter',display);dot.addEventListener('focus',display);dot.addEventListener('mouseleave',()=>tip.style.opacity='0');dot.addEventListener('blur',()=>tip.style.opacity='0');
+      });
+    }
+    function renderDonut(){
+      const values=totals(currentRows(),'forms').slice(0,4);if(newlyAdded){values[0]+=newlyAdded}const total=values.reduce((a,b)=>a+b,0);$('forms-total').textContent=number(total);
+      let cumulative=0,svg=`<circle cx="105" cy="105" r="76" stroke="var(--line)" stroke-width="22" fill="none"/>`;
+      values.forEach((v,i)=>{const length=(v/total)*2*Math.PI*76;const circumference=2*Math.PI*76;svg+=`<circle cx="105" cy="105" r="76" fill="none" stroke="${formColors[i]}" stroke-width="22" stroke-dasharray="${Math.max(0,length-5)} ${circumference}" stroke-dashoffset="${-cumulative}" stroke-linecap="round"><title>${formNames[i]}: ${v} fichas</title></circle>`;cumulative+=length});$('forms-donut').innerHTML=svg;
+      $('forms-legend').innerHTML=values.map((v,i)=>`<div class="donut-item"><span class="legend-dot" style="background:${formColors[i]}"></span><span class="label">${formNames[i]}</span><strong>${number(v)}</strong></div>`).join('');
+    }
+    function renderDocs(){let values=totals(currentRows(),'docs');let max=Math.max(...values);$('doc-bars').innerHTML=docNames.map((name,i)=>`<div class="doc-row"><span class="doc-label">${name}</span><div class="doc-track"><div class="doc-fill" style="width:${(100*values[i]/max).toFixed(1)}%" role="img" aria-label="${values[i]} documentos de tipo ${name}"></div></div><span class="doc-count">${number(values[i])}</span></div>`).join('')}
+    function renderAgenda(){
+      $('agenda-list').innerHTML=upcoming.map((x,i)=>`<div class="agenda-row" role="button" tabindex="0" data-agenda="${i}"><div class="agenda-date"><b>${x.day}</b><span>${x.month}</span></div><div class="agenda-info"><strong>${x.title}</strong><small>${svgIcon('clock')} ${x.time}</small></div><span class="agenda-label">${x.tag}</span></div>`).join('');
+      $('agenda-list').querySelectorAll('[data-agenda]').forEach(n=>{
+        const announce=()=>{let item=upcoming[Number(n.dataset.agenda)];toast(`${item.title} · ${item.day} de noviembre, ${item.time}. Evento ficticio.`)};
+        n.addEventListener('click',announce);n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();announce()}});
+      });
+    }
+    function renderCases(){
+      const q=$('case-search').value.trim().toLocaleLowerCase('es');const filtered=cases.filter(c=>(c.code+' '+c.type+' '+c.status+' '+c.date).toLocaleLowerCase('es').includes(q));
+      $('cases-table-body').innerHTML=filtered.length?filtered.map((c,i)=>`<tr><td><span class="code-link">${c.code}</span></td><td>${c.type}</td><td>${c.date}</td><td><span class="status ${statusClass(c.status)}">${c.status}</span></td><td><button class="table-action" data-record="${c.code}" aria-label="Ver información de demostración de ${c.code}">${svgIcon('more')}</button></td></tr>`).join(''):`<tr><td colspan="5" style="padding:20px 15px;color:var(--muted)">No hay expedientes de ejemplo con ese filtro.</td></tr>`;
+      $('table-count').textContent=`Mostrando ${filtered.length} de ${cases.length} registros ilustrativos`;
+      $('cases-table-body').querySelectorAll('[data-record]').forEach(el=>el.addEventListener('click',()=>toast(`Registro ficticio ${el.dataset.record}. Para consultar expedientes reales se necesita conexión a API y autorización.`)));
+    }
+    function renderAll(){renderStats();renderChart();renderDonut();renderDocs();renderAgenda();renderCases()}
+    function switchView(view){
+      $('notifications-popover').classList.remove('show');$('sidebar').classList.remove('open');$('mobile-scrim').classList.remove('show');
+      document.querySelectorAll('.nav-link').forEach(x=>x.classList.toggle('active',x.dataset.view===view));
+      const dashboard=view==='dashboard';$('dashboard-view').classList.toggle('hidden',!dashboard);$('module-view').classList.toggle('active',!dashboard);$('breadcrumb-text').textContent=dashboard?'Resumen general':modules[view]?.title||'Resumen general';
+      $('main-title').textContent=dashboard?'Panel de control':modules[view]?.title||'Panel de control';$('main-subtitle').textContent=dashboard?'Miércoles, 11 de noviembre de 2026 · Seguimiento de la atención documental':'Sección conceptual basada en la matriz preliminar de requerimientos';
+      if(!dashboard&&modules[view]){
+        const m=modules[view];$('module-title').textContent=m.title;$('module-description').textContent=m.description;
+        $('module-requirements').innerHTML=m.req.map(r=>`<div class="require-item"><span class="require-code">${r[0]}</span><span>${r[1]}</span></div>`).join('')}
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),4200)}
+    function modal(open){$('modal-backdrop').classList.toggle('show',open);$('modal-backdrop').setAttribute('aria-hidden',String(!open));if(open)$('demo-case-type').focus()}
+    document.querySelectorAll('[data-view], [data-go]').forEach(el=>el.addEventListener('click',()=>switchView(el.dataset.view||el.dataset.go)));
+    document.querySelectorAll('[data-period]').forEach(el=>el.addEventListener('click',()=>{period=el.dataset.period;document.querySelectorAll('[data-period]').forEach(b=>b.classList.toggle('active',b===el));renderAll()}));
+    $('case-search').addEventListener('input',renderCases);$('clear-search-btn').addEventListener('click',()=>{$('case-search').value='';renderCases()});
+    $('theme-toggle').addEventListener('click',()=>{const dark=document.body.dataset.theme==='dark';document.body.dataset.theme=dark?'light':'dark';$('theme-toggle').innerHTML=svgIcon(dark?'moon':'sun');toast(`Tema ${dark?'claro':'oscuro'} activado`)});
+    $('notifications-toggle').addEventListener('click',()=>{$('notifications-popover').classList.toggle('show')});
+    $('new-case-btn').addEventListener('click',()=>modal(true));$('close-modal').addEventListener('click',()=>modal(false));$('cancel-modal').addEventListener('click',()=>modal(false));$('modal-backdrop').addEventListener('click',e=>{if(e.target===$('modal-backdrop'))modal(false)});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){modal(false);$('notifications-popover').classList.remove('show')}});
+    $('demo-case-form').addEventListener('submit',e=>{
+      e.preventDefault();newlyAdded++;
+      const code=`EXP-2026-${String(215+newlyAdded).padStart(4,'0')}`;
+      cases.unshift({code,type:$('demo-case-type').value,date:'11 nov 2026',status:$('demo-case-status').value});
+      modal(false);switchView('dashboard');renderAll();toast(`Se agregó ${code} únicamente a la demostración. No fue enviado ni guardado en un servidor.`)
+    });
+    $('export-btn').addEventListener('click',()=>{
+      const selected=currentRows();const rows=[['Mes','Casos','Fichas de seguimiento','Actas','Actividades','Fichas recepción','Fichas entrevista','Fichas visita','Fichas seguimiento','PDF actas','PDF invitaciones','PDF solicitudes','PDF informes','PDF fichas']];
+      selected.forEach(m=>rows.push([m.full,m.cases,m.followup,m.actas,m.events,...m.forms,...m.docs]));
+      const csv='\ufeff'+rows.map(r=>r.join(';')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`SISTDEMUNA_DEMO_${period}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),500);toast('CSV descargado. Contiene exclusivamente cifras ficticias de demostración.')
+    });
+    $('privacy-btn').addEventListener('click',()=>toast('Para producción: autenticación, autorización por roles, auditoría, protección de datos, respaldos y consultas agregadas.'));
+    $('mobile-menu').addEventListener('click',()=>{$('sidebar').classList.add('open');$('mobile-scrim').classList.add('show')});$('mobile-scrim').addEventListener('click',()=>{$('sidebar').classList.remove('open');$('mobile-scrim').classList.remove('show')});
+    document.addEventListener('click',e=>{if(!$('notifications-popover').contains(e.target)&&!$('notifications-toggle').contains(e.target))$('notifications-popover').classList.remove('show')});
+    renderAll();
+  })();
+  </script>
+</body>
+</html>

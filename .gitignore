@@ -17,8 +17,8 @@ frontend/.env
 cpanel_demuna/
 SISTEMA/
 
-# Salida de compilación
-frontend/dist/
+# Salida de compilación (mantenemos frontend/dist para cPanel Git deployment)
+# frontend/dist/
 
 # Logs y temporales del sistema
 *.log
@@ -28,3 +28,4 @@ yarn-debug.log*
 Thumbs.db
 .idea/
 .vscode/
+

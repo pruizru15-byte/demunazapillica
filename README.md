@@ -74,3 +74,4 @@ Desarrollado bajo una arquitectura desacoplada full-stack con diseño Dark Tech 
 ## Licencia y Derechos
 
 Desarrollado para la Municipalidad Distrital de Sapillica · DEMUNA Perú.
+

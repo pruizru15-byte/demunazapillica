@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /demuna/
+  
+  # Si la petición es para la API backend (/demuna/api/...), no interceptar
+  RewriteRule ^api(/.*)?$ - [L,NC]
+  
+  # Si el archivo o carpeta existe físicamente, servir directamente
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Reescritura para Single Page Application (React Router) bajo /demuna
+  RewriteRule ^index\.html$ - [L]
+  RewriteRule . /demuna/index.html [L]
+</IfModule>
+
+# Compresión GZIP para mejor rendimiento
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+

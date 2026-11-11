@@ -7,12 +7,17 @@ use App\Utils\Response;
 class AuthMiddleware {
     public static function authenticate(): array {
         $authHeader = $_SERVER['HTTP_AUTHORIZATION'] 
+            ?? $_SERVER['HTTP_X_AUTHORIZATION']
             ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] 
             ?? '';
 
         if (!$authHeader && function_exists('apache_request_headers')) {
             $headers = apache_request_headers();
-            $authHeader = $headers['Authorization'] ?? $headers['authorization'] ?? '';
+            $authHeader = $headers['Authorization'] 
+                ?? $headers['authorization'] 
+                ?? $headers['X-Authorization'] 
+                ?? $headers['x-authorization'] 
+                ?? '';
         }
 
         if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {

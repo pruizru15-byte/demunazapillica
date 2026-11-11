@@ -1,10 +1,20 @@
+# Habilitar paso de autenticacion en Apache FastCGI/suPHP
+CGIPassAuth On
+
+<IfModule mod_setenvif.c>
+  SetEnvIfNoCase Authorization "(.*)" HTTP_AUTHORIZATION=$1
+  SetEnvIfNoCase X-Authorization "(.*)" HTTP_X_AUTHORIZATION=$1
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /demuna/
   
-  # Preservar cabecera Authorization para peticiones API
+  # Preservar cabeceras Authorization para peticiones API
   RewriteCond %{HTTP:Authorization} .
   RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+  RewriteCond %{HTTP:X-Authorization} .
+  RewriteRule .* - [E=HTTP_X_AUTHORIZATION:%{HTTP:X-Authorization}]
   
   # Si la petición es para la API backend (/demuna/api/...), no interceptar
   RewriteRule ^api(/.*)?$ - [L,NC]
@@ -17,10 +27,6 @@
   # Reescritura para Single Page Application (React Router) bajo /demuna
   RewriteRule ^index\.html$ - [L]
   RewriteRule . /demuna/index.html [L]
-</IfModule>
-
-<IfModule mod_setenvif.c>
-  SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
 </IfModule>
 
 # Compresión GZIP para mejor rendimiento

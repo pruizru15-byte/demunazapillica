@@ -1,17 +1,23 @@
+# Habilitar paso de autenticacion en Apache FastCGI/suPHP
+CGIPassAuth On
+
+<IfModule mod_setenvif.c>
+    SetEnvIfNoCase Authorization "(.*)" HTTP_AUTHORIZATION=$1
+    SetEnvIfNoCase X-Authorization "(.*)" HTTP_X_AUTHORIZATION=$1
+</IfModule>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Pasar cabecera de autorizacion Bearer JWT a PHP bajo Apache FastCGI/PHP-FPM
+    # Pasar cabeceras de autorizacion a PHP
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    RewriteCond %{HTTP:X-Authorization} .
+    RewriteRule .* - [E=HTTP_X_AUTHORIZATION:%{HTTP:X-Authorization}]
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ index.php [QSA,L]
-</IfModule>
-
-<IfModule mod_setenvif.c>
-    SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
 </IfModule>
 
 # Seguridad: Bloquear acceso a archivos sensibles

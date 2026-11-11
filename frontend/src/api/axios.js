@@ -16,6 +16,7 @@ apiClient.interceptors.request.use(
     const token = localStorage.getItem('demuna_token') || localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+      config.headers['X-Authorization'] = `Bearer ${token}`;
     }
     return config;
   },
